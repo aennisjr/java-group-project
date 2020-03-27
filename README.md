@@ -1,4 +1,4 @@
-## java-group-project
+## Java Group Project
 Description
 
 #### Development Requirements
