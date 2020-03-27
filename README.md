@@ -1,1 +1,6 @@
-# java-group-project
+## java-group-project
+Description
+
+#### Development Requirements
+* Java/Java SDK
+* Apache NetBeans IDE
