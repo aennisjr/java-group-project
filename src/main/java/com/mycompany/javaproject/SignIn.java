@@ -10,11 +10,8 @@ import javax.swing.JOptionPane;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.FilenameFilter;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Dictionary;
-import java.util.Hashtable;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -176,41 +173,64 @@ public class SignIn extends javax.swing.JFrame {
             if(fileFound == false) {
                 JOptionPane.showMessageDialog(null, "An account does not exist with that email address.");
             } else {
-                // if the file is found, read the content and see if the password matches
+                // if the file is found, read the contents and see if the password matches
                 try {
-                        reader = new BufferedReader(new FileReader(directory + "/" + filename));
-                        String line = reader.readLine();
-                        boolean password_found = false;
-                        int increment = 0;
+                    reader = new BufferedReader(new FileReader(directory + "/" + filename));
+                    String line = reader.readLine();
+                    boolean password_found = false;
+                    int increment = 0;
 
-                        while (line != null && increment < 3) {
-                                String email = line;
-                                // read next line
-                                line = reader.readLine();
-                                System.out.println(line + " | " + password);
-                                // check if the line's value matches the password entered
-                                if (line.equals(password)) {
-                                    password_found = true;
-                                }
-                                increment++;
-                        } // end while loop
+                    while (line != null && increment < 3) {
+                            String email = line;
+                            // read next line
+                            line = reader.readLine();
+                            // check if the line's value matches the password entered
+                            if (line.equals(password)) {
+                                password_found = true;
+                            }
+                            increment++;
+                    } // end while loop
 
-                        if (password_found == true){
-                            JOptionPane.showMessageDialog(null, "Success. You are now logged in.");
-                            
-                            this.setVisible(false);
-                            new MainWindow().setVisible(false);
-                            new Dashboard().setVisible(true);
-                            
-                            // Initializing a Dictionary 
-                            Dictionary cache = new Hashtable();
-                            cache.put("email_address", email_address);
-                            
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Password incorrect, please try again.");
+                    // if the passwords match, log the user into the system
+                    if (password_found == true){
+                        JOptionPane.showMessageDialog(null, "Success. You are now logged in.");
+
+                        this.setVisible(false);
+                        new MainWindow().setVisible(false);
+                        new Dashboard().setVisible(true);
+                        
+                        //create temporary directory for the currently active user
+                        new File("C:/handmedown/activeuser").mkdirs();
+                        File temp_storage = new File("C:/handmedown/activeuser");
+
+                        // Deletes the data for any other temporay user that previously used the system
+                        File[] temp_files = temp_storage.listFiles();
+                        for (File myFile: temp_files) {
+                            if (myFile.isDirectory()) {  
+                                deleteDir(myFile);
+                            } 
+                            myFile.delete();
+                        }
+                        
+                        try {
+                            // create the temporary file
+                            File myObj = new File("C:/handmedown/activeuser/" + email_address + ".txt");
+                            // Write the data to the file, one value on each line
+                            FileWriter myWriter = new FileWriter(myObj);
+                            myWriter.write(email_address);
+                            myWriter.close();
+
+                        } catch (IOException e) {
+                            // Catch any errors that may be thrown
+                            System.out.println("An error occurred. Could not create temporary storage directory for active user.");
+                            e.printStackTrace();
                         }
 
-                        reader.close();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Password incorrect, please try again.");
+                    }
+
+                    reader.close();
                 } catch (IOException e) {
                         e.printStackTrace();
                 }
@@ -257,6 +277,17 @@ public class SignIn extends javax.swing.JFrame {
                 new SignIn().setVisible(true);
             }
         });
+    }
+    
+    public void deleteDir(File dir) {
+        File[] files = dir.listFiles();
+
+        for (File myFile: files) {
+            if (myFile.isDirectory()) {  
+                deleteDir(myFile);
+            } 
+            myFile.delete();
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
