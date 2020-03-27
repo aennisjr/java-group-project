@@ -33,7 +33,7 @@ public class Dashboard extends javax.swing.JFrame {
         resource_list = new javax.swing.JTextArea();
         view_books = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        add_new_book_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -75,7 +75,12 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel1.setText("Books");
 
-        jButton1.setText("Add New");
+        add_new_book_button.setText("Add New");
+        add_new_book_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                add_new_book_buttonMouseClicked(evt);
+            }
+        });
 
         jLabel2.setText("School Supplies");
 
@@ -92,7 +97,7 @@ public class Dashboard extends javax.swing.JFrame {
                 .addGroup(container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(view_books, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add_new_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -110,7 +115,7 @@ public class Dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(view_books)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(add_new_book_button)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -136,7 +141,7 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void view_booksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view_booksMouseClicked
-        // TODO add your handling code here:
+        // Get the data for all the book files in the directory
         String[] list = {"one", "two", "three"};
         
         resource_list.setText(null); //clear out old text
@@ -146,6 +151,11 @@ public class Dashboard extends javax.swing.JFrame {
         //repaints the panel after update
         container_panel.revalidate();
     }//GEN-LAST:event_view_booksMouseClicked
+
+    private void add_new_book_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_new_book_buttonMouseClicked
+        //Show the add book panel when the dashboard's Add New button is clicked
+        new AddBook().setVisible(true);
+    }//GEN-LAST:event_add_new_book_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -183,8 +193,8 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton add_new_book_button;
     private javax.swing.JPanel container_panel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

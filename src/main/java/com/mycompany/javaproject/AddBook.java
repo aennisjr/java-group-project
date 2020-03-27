@@ -5,6 +5,11 @@
  */
 package com.mycompany.javaproject;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ennis
@@ -27,47 +32,227 @@ public class AddBook extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        add_book_panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        book_title_label = new javax.swing.JLabel();
+        isbn_label = new javax.swing.JLabel();
+        book_title_field = new javax.swing.JTextField();
+        isbn_field = new javax.swing.JTextField();
+        available_for_sale = new javax.swing.JCheckBox();
+        available_for_trade = new javax.swing.JCheckBox();
+        condition_field = new javax.swing.JComboBox<>();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        description_field = new javax.swing.JTextArea();
+        description_label = new javax.swing.JLabel();
+        author_field = new javax.swing.JTextField();
+        author_label = new javax.swing.JLabel();
+        publisher_label = new javax.swing.JLabel();
+        publisher_field = new javax.swing.JTextField();
+        available_for_label = new javax.swing.JLabel();
+        submit_button = new javax.swing.JButton();
+        copies_label = new javax.swing.JLabel();
+        copies_field = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Add A Book");
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        add_book_panel.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Georgia Pro Cond", 0, 36)); // NOI18N
         jLabel1.setText("Add A Book");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(209, 209, 209)
-                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                .addGap(71, 71, 71))
+        book_title_label.setText("Book Title");
+
+        isbn_label.setText("ISBN");
+
+        available_for_sale.setText("Sale");
+
+        available_for_trade.setText("Trade");
+
+        condition_field.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Poor", "Fair", "Good", "Excellent" }));
+        condition_field.setSelectedItem(condition_field);
+
+        jLabel2.setText("Condition");
+
+        description_field.setColumns(20);
+        description_field.setLineWrap(true);
+        description_field.setRows(5);
+        jScrollPane1.setViewportView(description_field);
+
+        description_label.setText("Description");
+
+        author_label.setText("Author");
+
+        publisher_label.setText("Publisher");
+
+        available_for_label.setText("Available For");
+
+        submit_button.setText("Submit");
+        submit_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submit_buttonMouseClicked(evt);
+            }
+        });
+
+        copies_label.setText("Number of Copies");
+
+        copies_field.setText("1");
+
+        javax.swing.GroupLayout add_book_panelLayout = new javax.swing.GroupLayout(add_book_panel);
+        add_book_panel.setLayout(add_book_panelLayout);
+        add_book_panelLayout.setHorizontalGroup(
+            add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(add_book_panelLayout.createSequentialGroup()
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(add_book_panelLayout.createSequentialGroup()
+                        .addGap(49, 49, 49)
+                        .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(add_book_panelLayout.createSequentialGroup()
+                                .addComponent(available_for_label)
+                                .addGap(18, 18, 18)
+                                .addComponent(available_for_trade)
+                                .addGap(18, 18, 18)
+                                .addComponent(available_for_sale))
+                            .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(submit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(description_label)
+                                    .addComponent(jScrollPane1)
+                                    .addGroup(add_book_panelLayout.createSequentialGroup()
+                                        .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(condition_field, javax.swing.GroupLayout.Alignment.LEADING, 0, 198, Short.MAX_VALUE)
+                                            .addComponent(book_title_label, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(isbn_label, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(book_title_field, javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(isbn_field, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(38, 38, 38)
+                                        .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(publisher_label)
+                                            .addComponent(author_label)
+                                            .addComponent(author_field)
+                                            .addComponent(publisher_field)
+                                            .addComponent(copies_label)
+                                            .addComponent(copies_field, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)))))))
+                    .addGroup(add_book_panelLayout.createSequentialGroup()
+                        .addGap(176, 176, 176)
+                        .addComponent(jLabel1)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(54, 54, 54)
+        add_book_panelLayout.setVerticalGroup(
+            add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(add_book_panelLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addComponent(jLabel1)
-                .addContainerGap(452, Short.MAX_VALUE))
+                .addGap(17, 17, 17)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(book_title_label)
+                    .addComponent(author_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(book_title_field, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(author_field, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(isbn_label)
+                    .addComponent(publisher_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(isbn_field, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(publisher_field, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(copies_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(copies_field, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
+                    .addComponent(condition_field))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(description_label)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(available_for_label, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(available_for_trade)
+                    .addComponent(available_for_sale))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addComponent(submit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(38, 38, 38))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(add_book_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(add_book_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void submit_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submit_buttonMouseClicked
+        // Handle form submission
+        // Input validation
+        String book_title = book_title_field.getText().trim();
+        String author = author_field.getText().trim();
+        String isbn = isbn_field.getText().trim();
+        String publisher = publisher_field.getText().trim();
+        String condition = (String)condition_field.getSelectedItem();
+        String description = description_field.getText().trim();
+        int copies = Integer.parseInt(copies_field.getText().trim());
+        
+        if(book_title.isEmpty() || author.isEmpty() || isbn.isEmpty() || publisher.isEmpty() || condition.isEmpty() || description.isEmpty() || copies == 0) {
+            // Error message for failed validation
+            JOptionPane.showMessageDialog(this, "Please ensure that you fill in all fields.");
+        } else {
+            // proceed if all fields are filled in
+            
+            // additional validation
+            if(copies != (int)copies){
+                JOptionPane.showMessageDialog(this, "The number of copies should be a numeric value");
+            } else {
+                try {
+                    // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
+                    new File("C:/javaproject/books").mkdirs();
+
+                    // Define the file to be and save it as the user's email address
+                    File myObj = new File("C:/handmedown/books/" + book_title + ".txt");
+                    if (myObj.createNewFile()) {
+                        System.out.println("File created: " + myObj.getName());
+                        try {
+                            // Write the data to the file, one value on each line
+                            FileWriter myWriter = new FileWriter(myObj);
+                            myWriter.write(book_title + "\n" + author + "\n" + isbn + "\n" + publisher + "\n" + condition + "\n" + description);
+                            myWriter.close();
+
+                            // Display confirmation message to the user and then dispose of the window
+                            JOptionPane.showMessageDialog(this, "Your book has been added to our collection.");
+                            this.dispose();
+                        } catch (IOException e) {
+                            // Catch any errors that may be thrown
+                            System.out.println("An error occurred. Please report this to an administrator.");
+                            e.printStackTrace();
+                        }
+                    } else {
+                        // Display message if the email address already exists
+                        JOptionPane.showMessageDialog(this, "We already have a book with that title. Please use another.");
+                    }
+                } catch (IOException e) {
+                    // Catch/DIsplay error messages
+                    JOptionPane.showMessageDialog(this, "You have already added a book with that title.");
+                    e.printStackTrace();
+                }
+            }
+        }
+    }//GEN-LAST:event_submit_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -105,7 +290,26 @@ public class AddBook extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel add_book_panel;
+    private javax.swing.JTextField author_field;
+    private javax.swing.JLabel author_label;
+    private javax.swing.JLabel available_for_label;
+    private javax.swing.JCheckBox available_for_sale;
+    private javax.swing.JCheckBox available_for_trade;
+    private javax.swing.JTextField book_title_field;
+    private javax.swing.JLabel book_title_label;
+    private javax.swing.JComboBox<String> condition_field;
+    private javax.swing.JTextField copies_field;
+    private javax.swing.JLabel copies_label;
+    private javax.swing.JTextArea description_field;
+    private javax.swing.JLabel description_label;
+    private javax.swing.JTextField isbn_field;
+    private javax.swing.JLabel isbn_label;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField publisher_field;
+    private javax.swing.JLabel publisher_label;
+    private javax.swing.JButton submit_button;
     // End of variables declaration//GEN-END:variables
 }
