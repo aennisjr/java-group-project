@@ -220,11 +220,17 @@ public class AddBook extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "The number of copies should be a numeric value");
             } else {
                 try {
+                    // get information about the current user
+                    File temp_storage = new File("C:/handmedown/activeuser");
+                    File[] temp_files = temp_storage.listFiles();
+                    // extract the user's email address for use in the filename
+                    String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
+
                     // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
                     new File("C:/javaproject/books").mkdirs();
 
-                    // Define the file to be and save it as the user's email address
-                    File myObj = new File("C:/handmedown/books/" + book_title + ".txt");
+                    // Define the file to be and save it as the user's email + book title address
+                    File myObj = new File("C:/handmedown/books/" + current_user_email + " - " + book_title + ".txt");
                     if (myObj.createNewFile()) {
                         System.out.println("File created: " + myObj.getName());
                         try {

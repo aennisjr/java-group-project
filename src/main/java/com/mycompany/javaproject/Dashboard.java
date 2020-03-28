@@ -5,6 +5,16 @@
  */
 package com.mycompany.javaproject;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import java.net.URI;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
 /**
  *
  * @author ennis
@@ -141,12 +151,49 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void view_booksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view_booksMouseClicked
+        // handle click event for the view books button
+
         // Get the data for all the book files in the directory
-        String[] list = {"one", "two", "three"};
+        File books = new File("C:/handmedown/books");
+        File[] books_array = books.listFiles();
+        String content = "";
+        int counter = 1;
         
         resource_list.setText(null); //clear out old text
-        for(String str: list) {
-            resource_list.append(str+"\n");
+        
+        for(File book: books_array) {
+            if (book.isFile() && book.getName().endsWith(".txt")) {
+                try {
+                    content = counter + ". ";
+                    
+                    BufferedReader reader;
+                    try {
+                        reader = new BufferedReader(new FileReader(book));
+                        String line = reader.readLine();
+                        while (line != null) {
+                                content = content + line + "\n     ";
+                                // read next line
+                                line = reader.readLine();
+                        }
+                        // Add space and an icon between the elements
+                        content += "\n\t\u03A8\n\n";
+                        
+                        // increment the counter
+                        counter++;
+                        
+                        // close the file
+                        reader.close();
+                    } catch (IOException e) {
+                            e.printStackTrace();
+                    }
+                    //resource_list.append(line + "\n\n");
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            // Output books inside the folder
+            resource_list.append(content);
         }
         //repaints the panel after update
         container_panel.revalidate();
