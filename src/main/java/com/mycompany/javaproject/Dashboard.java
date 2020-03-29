@@ -9,12 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-
-import java.net.URI;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
+import javax.swing.JOptionPane;
 /**
  *
  * @author ennis
@@ -26,6 +21,61 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
+        render_content();
+    }
+    
+    // A method get the data for all the book files in the directory
+    public File[] list_of_book_files() {
+        File books = new File("C:/handmedown/books");
+        File[] books_array = books.listFiles();
+        
+        return books_array;
+    }
+    
+    // renders the content of the page (books)
+    public void render_content(){
+        File[] books_array = list_of_book_files();
+        String content = "";
+        int counter = 1;
+        
+        resource_list.setText(null); //clear out old text
+        
+        for(File book: books_array) {
+            if (book.isFile() && book.getName().endsWith(".txt")) {
+                try {
+                    content = counter + ". ";
+                    
+                    BufferedReader reader;
+                    try {
+                        reader = new BufferedReader(new FileReader(book));
+                        String line = reader.readLine();
+                        while (line != null) {
+                                content = content + line + "\n          ";
+                                // read next line
+                                line = reader.readLine();
+                        }
+                        // Add space and an icon between the elements
+                        content += "\n\t- \u03A8 -\n\n";
+                        
+                        // increment the counter
+                        counter++;
+                        
+                        // close the file
+                        reader.close();
+                    } catch (IOException e) {
+                            e.printStackTrace();
+                    }
+                    //resource_list.append(line + "\n\n");
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            // Output books inside the folder
+            resource_list.append(content);
+        }
+        //repaints the panel after update
+        container_panel.revalidate();
     }
 
     /**
@@ -41,12 +91,13 @@ public class Dashboard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         resource_list = new javax.swing.JTextArea();
-        view_books = new javax.swing.JButton();
+        refresh_books_button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         add_new_book_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
+        delete_book_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(930, 540));
@@ -76,10 +127,10 @@ public class Dashboard extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        view_books.setText("View All");
-        view_books.addMouseListener(new java.awt.event.MouseAdapter() {
+        refresh_books_button.setText("Refresh");
+        refresh_books_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                view_booksMouseClicked(evt);
+                refresh_books_buttonMouseClicked(evt);
             }
         });
 
@@ -98,6 +149,13 @@ public class Dashboard extends javax.swing.JFrame {
 
         jButton3.setText("jButton3");
 
+        delete_book_button.setText("Del Book");
+        delete_book_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                delete_book_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout container_panelLayout = new javax.swing.GroupLayout(container_panel);
         container_panel.setLayout(container_panelLayout);
         container_panelLayout.setHorizontalGroup(
@@ -105,12 +163,13 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(container_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(view_books, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                    .addComponent(refresh_books_button, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(add_new_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(delete_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -123,9 +182,11 @@ public class Dashboard extends javax.swing.JFrame {
                     .addGroup(container_panelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(view_books)
+                        .addComponent(refresh_books_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(add_new_book_button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(delete_book_button)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -150,59 +211,70 @@ public class Dashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void view_booksMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_view_booksMouseClicked
+    private void refresh_books_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_books_buttonMouseClicked
         // handle click event for the view books button
 
-        // Get the data for all the book files in the directory
-        File books = new File("C:/handmedown/books");
-        File[] books_array = books.listFiles();
-        String content = "";
-        int counter = 1;
+        // use the method to get the list of files
+        File[] books_array = list_of_book_files();
         
-        resource_list.setText(null); //clear out old text
+        render_content();
         
-        for(File book: books_array) {
-            if (book.isFile() && book.getName().endsWith(".txt")) {
-                try {
-                    content = counter + ". ";
-                    
-                    BufferedReader reader;
-                    try {
-                        reader = new BufferedReader(new FileReader(book));
-                        String line = reader.readLine();
-                        while (line != null) {
-                                content = content + line + "\n     ";
-                                // read next line
-                                line = reader.readLine();
-                        }
-                        // Add space and an icon between the elements
-                        content += "\n\t\u03A8\n\n";
-                        
-                        // increment the counter
-                        counter++;
-                        
-                        // close the file
-                        reader.close();
-                    } catch (IOException e) {
-                            e.printStackTrace();
-                    }
-                    //resource_list.append(line + "\n\n");
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            // Output books inside the folder
-            resource_list.append(content);
-        }
-        //repaints the panel after update
-        container_panel.revalidate();
-    }//GEN-LAST:event_view_booksMouseClicked
+    }//GEN-LAST:event_refresh_books_buttonMouseClicked
 
     private void add_new_book_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_new_book_buttonMouseClicked
         //Show the add book panel when the dashboard's Add New button is clicked
         new AddBook().setVisible(true);
     }//GEN-LAST:event_add_new_book_buttonMouseClicked
+
+    private void delete_book_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_book_buttonMouseClicked
+        // Handle even for Delete Book Button
+        String input = JOptionPane.showInputDialog(this, "Please enter the title of the book you wish to delete.").trim().toLowerCase();
+        
+        // check if a value is entered
+        if(input != null) {
+            // get information about the current user
+            File temp_storage = new File("C:/handmedown/activeuser");
+            File[] temp_files = temp_storage.listFiles();
+            // extract the user's email address for use
+            String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
+            
+            // variable to store the outcome
+            int outcome = 2;
+            
+            //get a list of books in the folder
+            File []books_array = list_of_book_files();
+            
+            for(File book: books_array) {
+                // checks for the following
+                // 1. that the file is actually a file and not a directory (folder)
+                // 2. that the file name starts with the current user's email address 
+                // 3. that the file name ends with the title of the book that the user entered
+                if (book.isFile() && book.getName().startsWith(current_user_email) && book.getName().toLowerCase().endsWith(input + ".txt")) {
+                    try {
+                        // delete
+                        if(book.delete()){
+                            // if the file was found and successfully deleted
+                            outcome = 1;
+                            break;
+                        }
+                    } catch (Exception e) {
+                            e.printStackTrace();
+                    }
+                }
+            }
+            
+            // output the results to the user
+            if(outcome == 1) {
+                JOptionPane.showMessageDialog(this, "File Deleted.");
+                render_content();
+            } else if (outcome == 2) {
+                JOptionPane.showMessageDialog(this, "The book you're attempting to delete was not added by you, \n"
+                                                        + "or you may have typed the title incorrectly. Please try again");
+            } else if (outcome == 0) {
+                JOptionPane.showMessageDialog(this, "An error occured while processing your request.");
+            }
+        }
+    }//GEN-LAST:event_delete_book_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -242,13 +314,14 @@ public class Dashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_new_book_button;
     private javax.swing.JPanel container_panel;
+    private javax.swing.JButton delete_book_button;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton refresh_books_button;
     private javax.swing.JTextArea resource_list;
-    private javax.swing.JButton view_books;
     // End of variables declaration//GEN-END:variables
 }
