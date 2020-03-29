@@ -98,6 +98,9 @@ public class Dashboard extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         delete_book_button = new javax.swing.JButton();
+        search_field = new javax.swing.JTextField();
+        search_label = new javax.swing.JLabel();
+        search_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(930, 540));
@@ -156,6 +159,15 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        search_label.setText("Search");
+
+        search_button.setText("Search");
+        search_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                search_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout container_panelLayout = new javax.swing.GroupLayout(container_panel);
         container_panel.setLayout(container_panelLayout);
         container_panelLayout.setHorizontalGroup(
@@ -169,7 +181,10 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(delete_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(delete_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(search_field)
+                    .addComponent(search_label)
+                    .addComponent(search_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -188,6 +203,12 @@ public class Dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(delete_book_button)
                         .addGap(18, 18, 18)
+                        .addComponent(search_label)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(search_button)
+                        .addGap(26, 26, 26)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
@@ -276,6 +297,78 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_delete_book_buttonMouseClicked
 
+    private void search_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search_buttonMouseClicked
+        // handle click event for the search button
+        String search = search_field.getText().trim();
+        
+        if(search.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a book title to search for.");
+        } else {
+            // Stores the content to be output to the user
+            String content = "";
+            // variable to store the outcome
+            int outcome = 2;
+            int counter = 1;
+            int book_count = 0;
+            
+            //get a list of books in the folder
+            File []books_array = list_of_book_files();
+            
+            for(File book: books_array) {
+                // checks for the following
+                // 1. that the file is actually a file and not a directory (folder)
+                // 2. that the file name ends with the title of the book that the user searched for
+                if (book.isFile() && book.getName().toLowerCase().endsWith(search.toLowerCase() + ".txt")) {
+                    try {
+                        try {
+                            content = counter + ". ";
+
+                            BufferedReader reader;
+                            try {
+                                reader = new BufferedReader(new FileReader(book));
+                                String line = reader.readLine();
+                                while (line != null) {
+                                        content = content + line + "\n          ";
+                                        // read next line
+                                        line = reader.readLine();
+                                }
+                                // Add space and an icon between the elements
+                                content += "\n\t- \u03A8 -\n\n";
+
+                                // increment the counter
+                                counter++;
+                                book_count++;
+                                outcome = 1;
+
+                                // close the file
+                                reader.close();
+                            } catch (IOException e) {
+                                    e.printStackTrace();
+                            }
+                            //resource_list.append(line + "\n\n");
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    } catch (Exception e) {
+                            e.printStackTrace();
+                    }
+                }
+            }
+            
+            // output the results to the user
+            if(outcome == 1) {
+                JOptionPane.showMessageDialog(this, "We Found " + book_count + " book with that title.");
+                resource_list.setText(null); //clear out old text
+                resource_list.append(content); /// add the new text
+            } else if (outcome == 2) {
+                JOptionPane.showMessageDialog(this, "The book you're searching for was not found. Please try searching again");
+            } else if (outcome == 0) {
+                JOptionPane.showMessageDialog(this, "An error occured while processing your request.");
+            }
+        }
+    }//GEN-LAST:event_search_buttonMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -323,5 +416,8 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton refresh_books_button;
     private javax.swing.JTextArea resource_list;
+    private javax.swing.JButton search_button;
+    private javax.swing.JTextField search_field;
+    private javax.swing.JLabel search_label;
     // End of variables declaration//GEN-END:variables
 }

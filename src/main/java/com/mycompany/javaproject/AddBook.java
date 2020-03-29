@@ -238,7 +238,7 @@ public class AddBook extends javax.swing.JFrame {
                         try {
                             // Write the data to the file, one value on each line
                             FileWriter myWriter = new FileWriter(myObj);
-                            myWriter.write("Title: " + book_title + "\n" 
+                            myWriter.write("     Title: \t\t" + book_title + "\n" 
                                            + "Author: \t\t" + author + "\n" 
                                            + "ISBN: \t\t" + isbn + "\n"  
                                            + "Publisher: \t" + publisher + "\n" 
