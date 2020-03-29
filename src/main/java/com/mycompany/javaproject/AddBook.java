@@ -54,7 +54,7 @@ public class AddBook extends javax.swing.JFrame {
         copies_label = new javax.swing.JLabel();
         copies_field = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add A Book");
         setResizable(false);
 
@@ -207,6 +207,8 @@ public class AddBook extends javax.swing.JFrame {
         String publisher = publisher_field.getText().trim();
         String condition = (String)condition_field.getSelectedItem();
         String description = description_field.getText().trim();
+        boolean for_sale = available_for_sale.isSelected();
+        boolean for_trade = available_for_trade.isSelected();
         int copies = Integer.parseInt(copies_field.getText().trim());
         
         if(book_title.isEmpty() || author.isEmpty() || isbn.isEmpty() || publisher.isEmpty() || condition.isEmpty() || description.isEmpty() || copies == 0) {
@@ -236,7 +238,22 @@ public class AddBook extends javax.swing.JFrame {
                         try {
                             // Write the data to the file, one value on each line
                             FileWriter myWriter = new FileWriter(myObj);
-                            myWriter.write(book_title + "\n" + author + "\n" + isbn + "\n" + publisher + "\n" + condition + "\n" + description);
+                            myWriter.write("Title: " + book_title + "\n" 
+                                           + "Author: \t\t" + author + "\n" 
+                                           + "ISBN: \t\t" + isbn + "\n"  
+                                           + "Publisher: \t" + publisher + "\n" 
+                                           + "Condition: \t" + condition);
+                            
+                            // if the checkbox for sale is checked, append the following text to the file
+                            if(for_sale == true)
+                                myWriter.write("\n\t\tAvailable for Sale");
+                            
+                            // if the checkbox for sale is checked, append the following text to the file
+                            if(for_trade == true)
+                                myWriter.write("\n\t\tAvailable for Trade");
+                            
+                            myWriter.write("\nDescription:\n" + description);
+                            
                             myWriter.close();
 
                             // Display confirmation message to the user and then dispose of the window
