@@ -5,7 +5,9 @@
  */
 package com.mycompany.javaproject;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import javax.swing.JOptionPane;
@@ -227,9 +229,40 @@ public class AddBook extends javax.swing.JFrame {
                     File[] temp_files = temp_storage.listFiles();
                     // extract the user's email address for use in the filename
                     String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
+                    
+                    String userdata = "";
+                    int increment_count = 0;
+                    
+                    File user = new File("C:/handmedown/users");
+                    File[] user_array = user.listFiles();
+                    for(File info: user_array) {
+                        if (info.isFile() && info.getName().endsWith(current_user_email + ".txt")) {
+                            try {
+
+                                BufferedReader reader;
+                                try {
+                                    reader = new BufferedReader(new FileReader(info));
+                                    String line = reader.readLine();
+                                    while (increment_count < 3) {
+                                            userdata = userdata + line + " | ";
+                                            // read next line
+                                            line = reader.readLine();
+                                            increment_count++;
+                                    }
+                                    // close the file
+                                    reader.close();
+                                } catch (IOException e) {
+                                        e.printStackTrace();
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                    
 
                     // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
-                    new File("C:/javaproject/books").mkdirs();
+                    new File("C:/handmedown/books").mkdirs();
 
                     // Define the file to be and save it as the user's email + book title address
                     File myObj = new File("C:/handmedown/books/" + current_user_email + " - " + book_title + ".txt");
@@ -242,13 +275,18 @@ public class AddBook extends javax.swing.JFrame {
                                            + "Author: \t\t" + author + "\n" 
                                            + "ISBN: \t\t" + isbn + "\n"  
                                            + "Publisher: \t" + publisher + "\n" 
-                                           + "Condition: \t" + condition);
+                                           + "Condition: \t" + condition + "\n"
+                                           + "Posted By: \t" + userdata);
+                            
+                            //check if either checkbox is checked, if yes, add label
+                            if(for_sale == true || for_trade == true)
+                                myWriter.write("\nThis item is:");
                             
                             // if the checkbox for sale is checked, append the following text to the file
                             if(for_sale == true)
                                 myWriter.write("\n\t\tAvailable for Sale");
                             
-                            // if the checkbox for sale is checked, append the following text to the file
+                            // if the checkbox for trade is checked, append the following text to the file
                             if(for_trade == true)
                                 myWriter.write("\n\t\tAvailable for Trade");
                             
