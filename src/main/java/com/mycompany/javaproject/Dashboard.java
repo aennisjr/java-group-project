@@ -286,11 +286,11 @@ public class Dashboard extends javax.swing.JFrame {
             
             // output the results to the user
             if(outcome == 1) {
-                JOptionPane.showMessageDialog(this, "File Deleted.");
+                JOptionPane.showMessageDialog(this, "Your book has been removed from our database.");
                 render_content();
             } else if (outcome == 2) {
                 JOptionPane.showMessageDialog(this, "The book you're attempting to delete was not added by you, \n"
-                                                        + "or you may have typed the title incorrectly. Please try again");
+                                                        + "or you may have typed the title incorrectly. Please try again.");
             } else if (outcome == 0) {
                 JOptionPane.showMessageDialog(this, "An error occured while processing your request.");
             }
