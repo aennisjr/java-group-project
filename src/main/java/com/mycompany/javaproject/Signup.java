@@ -158,7 +158,8 @@ public class Signup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-
+        // define user directory
+        String user_directory  = "C:/handmedown/users/";
         // Get the data and store them in variables
         String phone_number = phone_number_field.getText().trim();
         String email_address = email_address_field.getText().trim();
@@ -173,10 +174,10 @@ public class Signup extends javax.swing.JFrame {
             
             try {
                 // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
-                new File("C:/javaproject/users").mkdirs();
+                new File(user_directory).mkdirs();
                 
                 // Define the file to be and save it as the user's email address
-                File myObj = new File("C:/handmedown/users/" + email_address + ".txt");
+                File myObj = new File(user_directory + email_address + ".txt");
                 if (myObj.createNewFile()) {
                     System.out.println("File created: " + myObj.getName());
                     try {
