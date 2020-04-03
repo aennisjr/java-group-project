@@ -4,9 +4,6 @@
  * and open the template in the editor.
  */
 package com.mycompany.javaproject;
-import javax.swing.JOptionPane;
-import java.io.*;
-import java.util.*;
 
 /**
  *
