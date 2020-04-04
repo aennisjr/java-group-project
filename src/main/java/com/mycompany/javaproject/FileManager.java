@@ -1,0 +1,259 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.javaproject;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+/**
+ *
+ * @author ennis
+ */
+public class FileManager {
+    
+    private final String user_directory = "C:\\handmedown\\users";
+    private final String current_user_directory = "C:\\handmedown\\activeuser";
+    private final String books_directory = "C:\\handmedown\\books";
+    
+    public String get_user_directory() {
+        return user_directory;
+    }
+    
+    public String get_current_user_directory() {
+        return current_user_directory;
+    }
+    
+    public String get_books_directory() {
+        return books_directory;
+    }
+    
+    public File[] all_dir_files(String directory) {
+        
+        // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
+        new File(directory).mkdirs();
+        
+        File files = new File(directory);
+        File[] file_array = files.listFiles();
+        
+        return file_array;
+        
+    }
+    
+    // Takes the directory and the title of a file to search for
+    public File[] all_dir_files_search(String directory, String search_for){
+        
+        // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
+        new File(directory).mkdirs();
+        
+        File[] file_array = all_dir_files(directory);
+        File[] results;
+        BufferedReader reader;
+        
+        String content; // string content to be returned
+        int counter = 1; // default value for file numbering
+        int file_count = 0; // counter for the number of file found
+        boolean outcome = false; // result of the check (file found = true; not found = remains false)
+        
+        for(File file: file_array) {
+            // checks for the following
+            // 1. that the file is actually a file and not a directory (folder)
+            // 2. that the file name ends with the title of the file that the user searched for
+            if (file.isFile() && file.getName().toLowerCase().endsWith(search_for.toLowerCase() + ".txt")) {
+                try {
+                    try {
+                        // display number before the file title
+                        content = counter + ". ";
+                        try {
+                            reader = new BufferedReader(new FileReader(file));
+                            String line = reader.readLine();
+                            while (line != null) {
+                                    content = content + line + "\n          ";
+                                    // read next line
+                                    line = reader.readLine();
+                            }
+                            // Add space and an icon between the elements
+                            content += "\n\t- \u221E -\n\n";
+
+                            // increment the counter
+                            counter++;
+                            file_count++;
+                            outcome = true;
+
+                            // close the file
+                            reader.close();
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                        }
+                        //resource_list.append(line + "\n\n");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+            }
+        }
+        
+        return null;
+    }
+    
+    public void render_file_content_in_panel(File[] file_array, JTextArea render_to_panel, JPanel revalidate_panel) {
+        String content = ""; // string content to be returned
+        int counter = 1; // default value for file numbering
+        int file_count = 0; // counter for the number of files found
+        boolean outcome = false; // result of the check (file found = true; not found = remains false)
+        
+        // iterate through the files
+        for(File file: file_array) {
+            if (file.isFile() && file.getName().endsWith(".txt")) {
+                try {
+                    content = counter + ". ";
+                    
+                    BufferedReader reader;
+                    try {
+                        reader = new BufferedReader(new FileReader(file));
+                        String line = reader.readLine();
+                        while (line != null) {
+                                content = content + line + "\n          ";
+                                // read next line
+                                line = reader.readLine();
+                        }
+                        // Add space and an icon between the elements
+                        content += "\n\t- \u221E - \u221E - \u221E -\n\n";
+                        
+                        // increment the counter
+                        counter++;
+                        
+                        // close the file
+                        reader.close();
+                    } catch (IOException e) {
+                            e.printStackTrace();
+                    }
+                    //resource_list.append(line + "\n\n");
+                    
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            // Output file data string that was found inside the folder
+            render_to_panel.append(content);
+        }
+        //repaints the panel after update
+        revalidate_panel.revalidate();
+    }
+    
+    public boolean delete_file_by_name(String directory, String filename) {
+        // Create directories in the C drive to store files there (if the directory doesn't already exist)
+        new File(directory).mkdirs();
+        
+        FileManager getFiles = new FileManager();
+        // get information about the current user
+        File[] temp_files = getFiles.all_dir_files(getFiles.get_current_user_directory());
+        // extract the user's email address for use
+        String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
+
+        // variable to store the outcome
+        boolean outcome = false;
+
+        // get a list of books in the folder
+        File[] books_array = getFiles.all_dir_files(getFiles.get_books_directory());
+
+        for(File book: books_array) {
+            // checks for the following
+            // 1. that the file is actually a file and not a directory (folder)
+            // 2. that the file name starts with the current user's email address 
+            // 3. that the file name ends with the title of the book that the user entered
+            if (book.isFile() && book.getName().startsWith(current_user_email) && book.getName().toLowerCase().endsWith(filename + ".txt")) {
+                try {
+                    // delete
+                    if(book.delete()){
+                        // if the file was found and successfully deleted
+                        outcome = true;
+                        break;
+                    }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+            }
+        }
+
+        // output the results to the user
+        if(outcome == true) {
+            JOptionPane.showMessageDialog(null, "Your book has been removed from our database.");
+            return true;
+        } else if (outcome == false) {
+            JOptionPane.showMessageDialog(null, "The book you're attempting to delete was not added by you, \n"
+                                              + "or you may have typed the title incorrectly. Please try again.");
+            return false;
+        } else {
+            JOptionPane.showMessageDialog(null, "An error occured while processing your request.");
+            return false;
+        }
+        
+    }
+    
+    public String current_user() {
+        // Create directories in the C drive to store files there (if the directory doesn't already exist)
+        new File(current_user_directory).mkdirs();
+        new File(user_directory).mkdirs();
+        
+        // get information about the current user
+        File temp_storage = new File(current_user_directory);
+        File[] temp_files = temp_storage.listFiles();
+        // extract the user's email address for use in the filename
+        String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
+
+        String userdata = "";
+        int increment_count = 0;
+        
+        BufferedReader reader;
+
+        // get additional information about the current user from the /user/ directory
+        File user = new File(user_directory);
+        File[] user_array = user.listFiles();
+        for(File info: user_array) {
+            if (info.isFile() && info.getName().endsWith(current_user_email + ".txt")) {
+                try {
+                    try {
+                        reader = new BufferedReader(new FileReader(info));
+                        String line = reader.readLine();
+                        while (increment_count < 3) {
+                                userdata = userdata + line + " | ";
+                                // read next line
+                                line = reader.readLine();
+                                increment_count++;
+                        }
+                        // close the file
+                        reader.close();
+                    } catch (IOException e) {
+                            e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        
+        return userdata;
+    }
+    
+    public String current_user_email(){
+        // get information about the current user
+        File temp_storage = new File(current_user_directory);
+        File[] temp_files = temp_storage.listFiles();
+        // extract the user's email address from the filename
+        String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
+        
+        return current_user_email;
+    }
+    
+}
