@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -19,24 +21,28 @@ import javax.swing.JTextArea;
  */
 public class FileManager {
     
-    private final String user_directory = "C:\\handmedown\\users";
-    private final String current_user_directory = "C:\\handmedown\\activeuser";
-    private final String books_directory = "C:\\handmedown\\books";
+    // declaration of default directories
+    private final String user_directory = "C:/handmedown/users/";
+    private final String current_user_directory = "C:/handmedown/activeuser/";
+    private final String books_directory = "C:/handmedown/books/";
     
+    // getter for user directory
     public String get_user_directory() {
         return user_directory;
     }
     
+    // getter for current user directory
     public String get_current_user_directory() {
         return current_user_directory;
     }
     
+    // getter for books directory
     public String get_books_directory() {
         return books_directory;
     }
     
+    // gets a list of all files stored in a given directory, returns a File array
     public File[] all_dir_files(String directory) {
-        
         // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
         new File(directory).mkdirs();
         
@@ -47,7 +53,7 @@ public class FileManager {
         
     }
     
-    // Takes the directory and the title of a file to search for
+    // Takes the directory and the title of a file to search for. Returns a File array
     public File[] all_dir_files_search(String directory, String search_for){
         
         // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
@@ -106,11 +112,15 @@ public class FileManager {
         return null;
     }
     
+    // takes a file array, targeted text area (JTextArea), and panel (JPanel) as arguments
+    // takes the array, read all files in the array, then append it to the target panel as a string, then revalidates the parent element (JPanel)
     public void render_file_content_in_panel(File[] file_array, JTextArea render_to_panel, JPanel revalidate_panel) {
         String content = ""; // string content to be returned
         int counter = 1; // default value for file numbering
         int file_count = 0; // counter for the number of files found
         boolean outcome = false; // result of the check (file found = true; not found = remains false)
+        
+        BufferedReader reader;
         
         // iterate through the files
         for(File file: file_array) {
@@ -118,7 +128,7 @@ public class FileManager {
                 try {
                     content = counter + ". ";
                     
-                    BufferedReader reader;
+                    
                     try {
                         reader = new BufferedReader(new FileReader(file));
                         String line = reader.readLine();
@@ -151,6 +161,7 @@ public class FileManager {
         revalidate_panel.revalidate();
     }
     
+    // takes a directory (String) and filename (String). Searches the directory for the filename given then deletes it
     public boolean delete_file_by_name(String directory, String filename) {
         // Create directories in the C drive to store files there (if the directory doesn't already exist)
         new File(directory).mkdirs();
@@ -188,9 +199,11 @@ public class FileManager {
 
         // output the results to the user
         if(outcome == true) {
+            // book successfully removed
             JOptionPane.showMessageDialog(null, "Your book has been removed from our database.");
             return true;
         } else if (outcome == false) {
+            // if the filename does not match any of the files returned, or if the file was not added by current user
             JOptionPane.showMessageDialog(null, "The book you're attempting to delete was not added by you, \n"
                                               + "or you may have typed the title incorrectly. Please try again.");
             return false;
@@ -201,13 +214,14 @@ public class FileManager {
         
     }
     
+    // returns a String containing information about the currently active user
     public String current_user() {
         // Create directories in the C drive to store files there (if the directory doesn't already exist)
-        new File(current_user_directory).mkdirs();
-        new File(user_directory).mkdirs();
+        new File(get_current_user_directory()).mkdirs();
+        new File(get_user_directory()).mkdirs();
         
         // get information about the current user
-        File temp_storage = new File(current_user_directory);
+        File temp_storage = new File(get_current_user_directory());
         File[] temp_files = temp_storage.listFiles();
         // extract the user's email address for use in the filename
         String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
@@ -218,7 +232,7 @@ public class FileManager {
         BufferedReader reader;
 
         // get additional information about the current user from the /user/ directory
-        File user = new File(user_directory);
+        File user = new File(get_user_directory());
         File[] user_array = user.listFiles();
         for(File info: user_array) {
             if (info.isFile() && info.getName().endsWith(current_user_email + ".txt")) {
@@ -246,9 +260,10 @@ public class FileManager {
         return userdata;
     }
     
+    // returns a String containing the currently active user's email address (filename)
     public String current_user_email(){
         // get information about the current user
-        File temp_storage = new File(current_user_directory);
+        File temp_storage = new File(get_current_user_directory());
         File[] temp_files = temp_storage.listFiles();
         // extract the user's email address from the filename
         String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
