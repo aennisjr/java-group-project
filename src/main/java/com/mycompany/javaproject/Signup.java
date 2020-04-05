@@ -158,13 +158,15 @@ public class Signup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // define user directory
-        String user_directory  = "C:/handmedown/users/";
+
         // Get the data and store them in variables
         String phone_number = phone_number_field.getText().trim();
         String email_address = email_address_field.getText().trim();
         String full_name = full_name_field.getText().trim();
         String password = password_field.getText().trim();
+        
+        FileManager getFiles = new FileManager();
+        String user_directory = getFiles.get_user_directory();
         
         // Input validation
         if(phone_number.isEmpty() || email_address.isEmpty() || full_name.isEmpty() || password.isEmpty()) {

@@ -21,61 +21,20 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public Dashboard() {
         initComponents();
-        render_content();
-    }
-    
-    // A method get the data for all the book files in the directory
-    public File[] list_of_book_files() {
-        File books = new File("C:/handmedown/books");
-        File[] books_array = books.listFiles();
-        
-        return books_array;
+        render_book_content();
     }
     
     // renders the content of the page (books)
-    public void render_content(){
-        File[] books_array = list_of_book_files();
-        String content = "";
-        int counter = 1;
+    public void render_book_content(){
+        FileManager getFiles = new FileManager();
+        File[] books_array = getFiles.all_dir_files(getFiles.get_books_directory());
+        int current_book_count = books_array.length;
         
         resource_list.setText(null); //clear out old text
         
-        for(File book: books_array) {
-            if (book.isFile() && book.getName().endsWith(".txt")) {
-                try {
-                    content = counter + ". ";
-                    
-                    BufferedReader reader;
-                    try {
-                        reader = new BufferedReader(new FileReader(book));
-                        String line = reader.readLine();
-                        while (line != null) {
-                                content = content + line + "\n          ";
-                                // read next line
-                                line = reader.readLine();
-                        }
-                        // Add space and an icon between the elements
-                        content += "\n\t- \u03A8 -\n\n";
-                        
-                        // increment the counter
-                        counter++;
-                        
-                        // close the file
-                        reader.close();
-                    } catch (IOException e) {
-                            e.printStackTrace();
-                    }
-                    //resource_list.append(line + "\n\n");
-                    
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            // Output books inside the folder
-            resource_list.append(content);
-        }
-        //repaints the panel after update
-        container_panel.revalidate();
+        resource_list.append("Our system currently has " + String.valueOf(current_book_count) + " book(s).\n\n");
+        FileManager render = new FileManager();
+        render.render_file_content_in_panel(books_array, resource_list, container_panel);
     }
 
     /**
@@ -101,6 +60,7 @@ public class Dashboard extends javax.swing.JFrame {
         search_field = new javax.swing.JTextField();
         search_label = new javax.swing.JLabel();
         search_button = new javax.swing.JButton();
+        signout_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(930, 540));
@@ -168,6 +128,14 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        signout_button.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        signout_button.setText("Sign Out");
+        signout_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                signout_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout container_panelLayout = new javax.swing.GroupLayout(container_panel);
         container_panel.setLayout(container_panelLayout);
         container_panelLayout.setHorizontalGroup(
@@ -184,8 +152,9 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(delete_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(search_field)
                     .addComponent(search_label)
-                    .addComponent(search_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(search_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(signout_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -194,6 +163,9 @@ public class Dashboard extends javax.swing.JFrame {
             .addGroup(container_panelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(container_panelLayout.createSequentialGroup()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(container_panelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -213,9 +185,10 @@ public class Dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(signout_button, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -236,9 +209,10 @@ public class Dashboard extends javax.swing.JFrame {
         // handle click event for the view books button
 
         // use the method to get the list of files
-        File[] books_array = list_of_book_files();
+        FileManager getFiles = new FileManager();
+        File[] books_array = getFiles.all_dir_files(getFiles.get_books_directory());
         
-        render_content();
+        render_book_content();
         
     }//GEN-LAST:event_refresh_books_buttonMouseClicked
 
@@ -253,47 +227,9 @@ public class Dashboard extends javax.swing.JFrame {
         
         // check if a value is entered
         if(input != null) {
-            // get information about the current user
-            File temp_storage = new File("C:/handmedown/activeuser");
-            File[] temp_files = temp_storage.listFiles();
-            // extract the user's email address for use
-            String current_user_email = temp_files[0].getName().replaceFirst("[.][^.]+$", "");
-            
-            // variable to store the outcome
-            int outcome = 2;
-            
-            //get a list of books in the folder
-            File []books_array = list_of_book_files();
-            
-            for(File book: books_array) {
-                // checks for the following
-                // 1. that the file is actually a file and not a directory (folder)
-                // 2. that the file name starts with the current user's email address 
-                // 3. that the file name ends with the title of the book that the user entered
-                if (book.isFile() && book.getName().startsWith(current_user_email) && book.getName().toLowerCase().endsWith(input + ".txt")) {
-                    try {
-                        // delete
-                        if(book.delete()){
-                            // if the file was found and successfully deleted
-                            outcome = 1;
-                            break;
-                        }
-                    } catch (Exception e) {
-                            e.printStackTrace();
-                    }
-                }
-            }
-            
-            // output the results to the user
-            if(outcome == 1) {
-                JOptionPane.showMessageDialog(this, "Your book has been removed from our database.");
-                render_content();
-            } else if (outcome == 2) {
-                JOptionPane.showMessageDialog(this, "The book you're attempting to delete was not added by you, \n"
-                                                        + "or you may have typed the title incorrectly. Please try again.");
-            } else if (outcome == 0) {
-                JOptionPane.showMessageDialog(this, "An error occured while processing your request.");
-            }
+            FileManager getFiles = new FileManager();
+            boolean delete = getFiles.delete_file_by_name(getFiles.get_books_directory(), input);
+            render_book_content();
         }
     }//GEN-LAST:event_delete_book_buttonMouseClicked
 
@@ -307,12 +243,15 @@ public class Dashboard extends javax.swing.JFrame {
             // Stores the content to be output to the user
             String content = "";
             // variable to store the outcome
-            int outcome = 2;
+            boolean outcome = false;
             int counter = 1;
             int book_count = 0;
+            BufferedReader reader;
             
             //get a list of books in the folder
-            File []books_array = list_of_book_files();
+            FileManager getFiles = new FileManager();
+            // get information about the current user
+            File[] books_array = getFiles.all_dir_files(getFiles.get_books_directory());
             
             for(File book: books_array) {
                 // checks for the following
@@ -323,7 +262,6 @@ public class Dashboard extends javax.swing.JFrame {
                         try {
                             content = counter + ". ";
 
-                            BufferedReader reader;
                             try {
                                 reader = new BufferedReader(new FileReader(book));
                                 String line = reader.readLine();
@@ -338,7 +276,7 @@ public class Dashboard extends javax.swing.JFrame {
                                 // increment the counter
                                 counter++;
                                 book_count++;
-                                outcome = 1;
+                                outcome = true;
 
                                 // close the file
                                 reader.close();
@@ -357,17 +295,28 @@ public class Dashboard extends javax.swing.JFrame {
             }
             
             // output the results to the user
-            if(outcome == 1) {
-                JOptionPane.showMessageDialog(this, "We Found " + book_count + " book with that title.");
+            if(outcome == true) {
+                JOptionPane.showMessageDialog(this, "We Found " + book_count + " book(s) with that title.");
                 resource_list.setText(null); //clear out old text
+                resource_list.append("Showing " + book_count + " result(s).\n\n"); // display number of results
                 resource_list.append(content); /// add the new text
-            } else if (outcome == 2) {
+            } else if (outcome == false) {
                 JOptionPane.showMessageDialog(this, "The book you're searching for was not found. Please try searching again");
-            } else if (outcome == 0) {
+            } else {
                 JOptionPane.showMessageDialog(this, "An error occured while processing your request.");
             }
         }
     }//GEN-LAST:event_search_buttonMouseClicked
+
+    private void signout_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signout_buttonMouseClicked
+        // Click event for the sign out button
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to sign out?");
+        
+        if(confirm == 0) {
+            // confirmation is true
+            this.setVisible(false);
+        }
+    }//GEN-LAST:event_signout_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -419,5 +368,6 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton search_button;
     private javax.swing.JTextField search_field;
     private javax.swing.JLabel search_label;
+    private javax.swing.JButton signout_button;
     // End of variables declaration//GEN-END:variables
 }
