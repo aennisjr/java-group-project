@@ -5,9 +5,6 @@
  */
 package com.mycompany.javaproject;
 
-import java.io.*;
-import javax.swing.JOptionPane;
-
 /**
  *
  * @author ennis
@@ -17,8 +14,8 @@ public class Main {
     public static void main(String[] args) {
         
         // Set the main window to be visible after launching the application
-        //new MainWindow().setVisible(true);
-        new Dashboard().setVisible(true);
+        new MainWindow().setVisible(true);
+        //new Dashboard().setVisible(true);
         
     }
     
