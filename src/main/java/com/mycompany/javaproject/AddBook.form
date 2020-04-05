@@ -49,29 +49,25 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="available_for_label" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="available_for_trade" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="available_for_sale" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                                  <Component id="submit_button" min="-2" pref="199" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="description_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                              <Component id="condition_field" alignment="0" pref="198" max="32767" attributes="0"/>
-                                              <Component id="book_title_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="isbn_label" alignment="0" min="-2" max="-2" attributes="0"/>
-                                              <Component id="book_title_field" alignment="0" max="32767" attributes="0"/>
-                                              <Component id="isbn_field" alignment="0" max="32767" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="submit_button" min="-2" pref="199" max="-2" attributes="0"/>
+                              <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="description_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="condition_field" alignment="0" pref="198" max="32767" attributes="0"/>
+                                          <Component id="book_title_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="isbn_label" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="book_title_field" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="isbn_field" alignment="0" max="32767" attributes="0"/>
+                                          <Component id="price_label" min="-2" max="-2" attributes="0"/>
+                                          <Component id="price_field" alignment="0" max="32767" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="available_for_label" min="-2" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="publisher_label" min="-2" max="-2" attributes="0"/>
                                               <Component id="author_label" min="-2" max="-2" attributes="0"/>
@@ -79,6 +75,11 @@
                                               <Component id="publisher_field" max="32767" attributes="0"/>
                                               <Component id="copies_label" min="-2" max="-2" attributes="0"/>
                                               <Component id="copies_field" pref="197" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" attributes="0">
+                                              <Component id="available_for_sale" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                                              <Component id="available_for_trade" min="-2" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -130,16 +131,21 @@
                       <Component id="condition_field" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="available_for_label" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
+                      <Component id="price_label" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="price_field" alignment="3" min="-2" pref="33" max="-2" attributes="0"/>
+                      <Component id="available_for_sale" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="available_for_trade" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="description_label" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="available_for_label" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
-                      <Component id="available_for_trade" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="available_for_sale" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace pref="57" max="32767" attributes="0"/>
+                  <EmptySpace pref="31" max="32767" attributes="0"/>
                   <Component id="submit_button" min="-2" pref="32" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
@@ -259,6 +265,13 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="1"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="price_label">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Price"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="price_field">
         </Component>
       </SubComponents>
     </Container>

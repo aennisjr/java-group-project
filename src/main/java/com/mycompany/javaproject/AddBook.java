@@ -24,6 +24,10 @@ public class AddBook extends javax.swing.JFrame {
     public AddBook() {
         initComponents();
     }
+    
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,6 +59,8 @@ public class AddBook extends javax.swing.JFrame {
         submit_button = new javax.swing.JButton();
         copies_label = new javax.swing.JLabel();
         copies_field = new javax.swing.JTextField();
+        price_label = new javax.swing.JLabel();
+        price_field = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add A Book");
@@ -102,6 +108,8 @@ public class AddBook extends javax.swing.JFrame {
 
         copies_field.setText("1");
 
+        price_label.setText("Price");
+
         javax.swing.GroupLayout add_book_panelLayout = new javax.swing.GroupLayout(add_book_panel);
         add_book_panel.setLayout(add_book_panelLayout);
         add_book_panelLayout.setHorizontalGroup(
@@ -110,34 +118,35 @@ public class AddBook extends javax.swing.JFrame {
                 .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(add_book_panelLayout.createSequentialGroup()
                         .addGap(49, 49, 49)
-                        .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(add_book_panelLayout.createSequentialGroup()
-                                .addComponent(available_for_label)
-                                .addGap(18, 18, 18)
-                                .addComponent(available_for_trade)
-                                .addGap(18, 18, 18)
-                                .addComponent(available_for_sale))
-                            .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(submit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(description_label)
-                                    .addComponent(jScrollPane1)
-                                    .addGroup(add_book_panelLayout.createSequentialGroup()
-                                        .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(condition_field, javax.swing.GroupLayout.Alignment.LEADING, 0, 198, Short.MAX_VALUE)
-                                            .addComponent(book_title_label, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(isbn_label, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(book_title_field, javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(isbn_field, javax.swing.GroupLayout.Alignment.LEADING))
-                                        .addGap(38, 38, 38)
+                        .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(submit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(description_label)
+                                .addComponent(jScrollPane1)
+                                .addGroup(add_book_panelLayout.createSequentialGroup()
+                                    .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(condition_field, 0, 198, Short.MAX_VALUE)
+                                        .addComponent(book_title_label)
+                                        .addComponent(jLabel2)
+                                        .addComponent(isbn_label)
+                                        .addComponent(book_title_field)
+                                        .addComponent(isbn_field)
+                                        .addComponent(price_label)
+                                        .addComponent(price_field))
+                                    .addGap(38, 38, 38)
+                                    .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(available_for_label)
                                         .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(publisher_label)
                                             .addComponent(author_label)
                                             .addComponent(author_field)
                                             .addComponent(publisher_field)
                                             .addComponent(copies_label)
-                                            .addComponent(copies_field, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)))))))
+                                            .addComponent(copies_field, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
+                                        .addGroup(add_book_panelLayout.createSequentialGroup()
+                                            .addComponent(available_for_sale)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(available_for_trade)))))))
                     .addGroup(add_book_panelLayout.createSequentialGroup()
                         .addGap(176, 176, 176)
                         .addComponent(jLabel1)))
@@ -173,15 +182,19 @@ public class AddBook extends javax.swing.JFrame {
                     .addComponent(copies_field, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)
                     .addComponent(condition_field))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(available_for_label, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(price_label))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(price_field, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(available_for_sale)
+                    .addComponent(available_for_trade))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(description_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(available_for_label, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(available_for_trade)
-                    .addComponent(available_for_sale))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addComponent(submit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(38, 38, 38))
         );
@@ -211,29 +224,36 @@ public class AddBook extends javax.swing.JFrame {
         String description = description_field.getText().trim();
         boolean for_sale = available_for_sale.isSelected();
         boolean for_trade = available_for_trade.isSelected();
-        int copies = Integer.parseInt(copies_field.getText().trim());
+        String copies = copies_field.getText().trim();
+        String price = price_field.getText().trim();
         
         // Basic input validation
-        if(book_title.isEmpty() || author.isEmpty() || isbn.isEmpty() || publisher.isEmpty() || condition.isEmpty() || description.isEmpty() || copies == 0) {
+        if(book_title.isEmpty() || author.isEmpty() || isbn.isEmpty() || publisher.isEmpty() || condition.isEmpty() || description.isEmpty() || copies.isEmpty() || price.isEmpty()) {
             // Error message for failed validation
             JOptionPane.showMessageDialog(this, "Please ensure that you fill in all fields.");
         } else {
             // proceed if all fields are filled in
-            
             // additional validation
-            if(copies != (int)copies){
-                JOptionPane.showMessageDialog(this, "The number of copies should be a numeric value");
+            if(!isNumeric(price) || !isNumeric(copies)){
+                JOptionPane.showMessageDialog(this, "The number of copies and price fields should contain numeric values");
             } else {
                 try {
                     //get information about current user
-                    FileManager result = new FileManager();
-                    String userdata = result.current_user();
-                    String current_user_email = result.current_user_email();
+                    FileManager getFiles = new FileManager();
+                    String userdata = getFiles.current_user();
+                    String current_user_email = getFiles.current_user_email();
+                    String books_directory = getFiles.get_books_directory();
+                    
+                    // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
+                    new File(books_directory).mkdirs();
+                    
+                    System.out.println("Books dir: " + books_directory);
 
                     // Define the file to be and save it as the user's email + book title address
-                    File myObj = new File("C:/handmedown/books/" + current_user_email + " - " + book_title + ".txt");
+                    File myObj = new File(books_directory + current_user_email + " - " + book_title + ".txt");
+                    
                     if (myObj.createNewFile()) {
-                        System.out.println("File created: " + myObj.getName());
+                        System.out.println("Book created: " + myObj.getName());
                         try {
                             // Write the data to the file, one value on each line
                             FileWriter myWriter = new FileWriter(myObj);
@@ -242,17 +262,18 @@ public class AddBook extends javax.swing.JFrame {
                                            + "ISBN: \t\t" + isbn + "\n"  
                                            + "Publisher: \t" + publisher + "\n" 
                                            + "Condition: \t" + condition + "\n"
+                                           + "Price: \t\t" + price + "\n"
                                            + "Posted By: \t" + userdata);
                             
                             //check both checkboxes are checked, if yes, add label
                             if(for_sale == true && for_trade == true) {
-                                myWriter.write("\nThis item is: \t\t Available for SALE & TRADE");
+                                myWriter.write("\nThis item is: \tAvailable for SALE or TRADE");
                             } else if(for_sale == true && for_trade == false) {
                                 // if only the for sale checkbox is checked
-                                myWriter.write("\nThis item is: \t\t Available for SALE ONLY");
+                                myWriter.write("\nThis item is: \tAvailable for SALE ONLY");
                             } else if(for_sale == false && for_trade == true) {
                                 // if only the for trade checkbox is checked
-                                myWriter.write("\nThis item is: \t\t Available for TRADES ONLY");
+                                myWriter.write("\nThis item is: \tAvailable for TRADES ONLY");
                             }
                             
                             // file description
@@ -336,6 +357,8 @@ public class AddBook extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField price_field;
+    private javax.swing.JLabel price_label;
     private javax.swing.JTextField publisher_field;
     private javax.swing.JLabel publisher_label;
     private javax.swing.JButton submit_button;
