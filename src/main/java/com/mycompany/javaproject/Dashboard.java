@@ -228,8 +228,13 @@ public class Dashboard extends javax.swing.JFrame {
         // check if a value is entered
         if(input != null) {
             FileManager getFiles = new FileManager();
-            boolean delete = getFiles.delete_file_by_name(getFiles.get_books_directory(), input);
-            render_book_content();
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this file?");
+            
+            if(confirm == 0) {
+                // confirmation is true
+                boolean delete = getFiles.delete_file_by_name(getFiles.get_books_directory(), input);
+                render_book_content();
+            }
         }
     }//GEN-LAST:event_delete_book_buttonMouseClicked
 
