@@ -9,8 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -25,6 +24,18 @@ public class FileManager {
     private final String user_directory = "C:/handmedown/users/";
     private final String current_user_directory = "C:/handmedown/activeuser/";
     private final String books_directory = "C:/handmedown/books/";
+    private final String supplies_directory = "C:/handmedown/supplies/";
+    
+    // constructor
+    public FileManager() {
+        // create directories if they do not already exist        
+        new File(user_directory).mkdirs();
+        new File(current_user_directory).mkdirs();
+        new File(books_directory).mkdirs();
+        new File(supplies_directory).mkdirs();
+        
+        System.out.println("Directories created");
+    }
     
     // getter for user directory
     public String get_user_directory() {
@@ -41,11 +52,14 @@ public class FileManager {
         return books_directory;
     }
     
+// getter for books directory
+    public String get_supplies_directory() {
+        return supplies_directory;
+    }
+    
     // gets a list of all files stored in a given directory, returns a File array
     public File[] all_dir_files(String directory) {
-        // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
-        new File(directory).mkdirs();
-        
+
         File files = new File(directory);
         File[] file_array = files.listFiles();
         
@@ -53,65 +67,23 @@ public class FileManager {
         
     }
     
-    // Takes the directory and the title of a file to search for. Returns a File array
-    public File[] all_dir_files_search(String directory, String search_for){
+    public ArrayList<String> search_dir_for_files(String directory, String search_for) {
         
-        // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
-        new File(directory).mkdirs();
+        File files = new File(directory);
+        File[] file_array = files.listFiles();
         
-        File[] file_array = all_dir_files(directory);
-        File[] results;
-        BufferedReader reader;
-        
-        String content; // string content to be returned
-        int counter = 1; // default value for file numbering
-        int file_count = 0; // counter for the number of file found
-        boolean outcome = false; // result of the check (file found = true; not found = remains false)
+        ArrayList<String> list = new ArrayList<String>(); 
         
         for(File file: file_array) {
-            // checks for the following
-            // 1. that the file is actually a file and not a directory (folder)
-            // 2. that the file name ends with the title of the file that the user searched for
-            if (file.isFile() && file.getName().toLowerCase().endsWith(search_for.toLowerCase() + ".txt")) {
-                try {
-                    try {
-                        // display number before the file title
-                        content = counter + ". ";
-                        try {
-                            reader = new BufferedReader(new FileReader(file));
-                            String line = reader.readLine();
-                            while (line != null) {
-                                    content = content + line + "\n          ";
-                                    // read next line
-                                    line = reader.readLine();
-                            }
-                            // Add space and an icon between the elements
-                            content += "\n\t- \u221E -\n\n";
-
-                            // increment the counter
-                            counter++;
-                            file_count++;
-                            outcome = true;
-
-                            // close the file
-                            reader.close();
-                        } catch (IOException e) {
-                                e.printStackTrace();
-                        }
-                        //resource_list.append(line + "\n\n");
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } catch (Exception e) {
-                        e.printStackTrace();
-                }
+            if (file.isFile() && file.getName().endsWith(search_for.toLowerCase() + ".txt")) {
+                list.add(file.getName());
+                return list;
             }
         }
-        
         return null;
     }
-    
+            
+            
     // takes a file array, targeted text area (JTextArea), and panel (JPanel) as arguments
     // takes the array, read all files in the array, then append it to the target panel as a string, then revalidates the parent element (JPanel)
     public void render_file_content_in_panel(File[] file_array, JTextArea render_to_panel, JPanel revalidate_panel) {
@@ -127,8 +99,7 @@ public class FileManager {
             if (file.isFile() && file.getName().endsWith(".txt")) {
                 try {
                     content = counter + ". ";
-                    
-                    
+
                     try {
                         reader = new BufferedReader(new FileReader(file));
                         String line = reader.readLine();
@@ -163,9 +134,7 @@ public class FileManager {
     
     // takes a directory (String) and filename (String). Searches the directory for the filename given then deletes it
     public boolean delete_file_by_name(String directory, String filename) {
-        // Create directories in the C drive to store files there (if the directory doesn't already exist)
-        new File(directory).mkdirs();
-        
+
         FileManager getFiles = new FileManager();
         // get information about the current user
         File[] temp_files = getFiles.all_dir_files(getFiles.get_current_user_directory());
@@ -216,10 +185,7 @@ public class FileManager {
     
     // returns a String containing information about the currently active user
     public String current_user() {
-        // Create directories in the C drive to store files there (if the directory doesn't already exist)
-        new File(get_current_user_directory()).mkdirs();
-        new File(get_user_directory()).mkdirs();
-        
+
         // get information about the current user
         File temp_storage = new File(get_current_user_directory());
         File[] temp_files = temp_storage.listFiles();
