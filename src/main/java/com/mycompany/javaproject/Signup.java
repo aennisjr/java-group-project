@@ -50,6 +50,7 @@ public class Signup extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create New Account");
         setBackground(new java.awt.Color(255, 255, 255));
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/h.png")).getImage());
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

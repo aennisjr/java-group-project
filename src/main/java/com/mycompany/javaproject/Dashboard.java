@@ -22,6 +22,7 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         render_book_content();
+        new FileManager();
     }
     
     // renders the content of the page (books)
@@ -35,6 +36,19 @@ public class Dashboard extends javax.swing.JFrame {
         resource_list.append("Our system currently has " + String.valueOf(current_book_count) + " book(s).\n\n");
         FileManager render = new FileManager();
         render.render_file_content_in_panel(books_array, resource_list, container_panel);
+    }
+    
+    // renders the content of the page (supplies)
+    public void render_supplies_content(){
+        FileManager getFiles = new FileManager();
+        File[] supplies_array = getFiles.all_dir_files(getFiles.get_supplies_directory());
+        int current_supplies_count = supplies_array.length;
+        
+        resource_list.setText(null); //clear out old text
+        
+        resource_list.append("Our system currently has " + String.valueOf(current_supplies_count) + " item(s).\n\n");
+        FileManager render = new FileManager();
+        render.render_file_content_in_panel(supplies_array, resource_list, container_panel);
     }
 
     /**
@@ -54,15 +68,17 @@ public class Dashboard extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         add_new_book_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        refresh_supplies = new javax.swing.JButton();
+        add_supplies = new javax.swing.JButton();
         delete_book_button = new javax.swing.JButton();
         search_field = new javax.swing.JTextField();
-        search_label = new javax.swing.JLabel();
         search_button = new javax.swing.JButton();
         signout_button = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Dashbaord");
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/h.png")).getImage());
         setPreferredSize(new java.awt.Dimension(930, 540));
         setResizable(false);
 
@@ -91,6 +107,7 @@ public class Dashboard extends javax.swing.JFrame {
         );
 
         refresh_books_button.setText("Refresh");
+        refresh_books_button.setToolTipText("See all books");
         refresh_books_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 refresh_books_buttonMouseClicked(evt);
@@ -108,9 +125,21 @@ public class Dashboard extends javax.swing.JFrame {
 
         jLabel2.setText("School Supplies");
 
-        jButton2.setText("jButton2");
+        refresh_supplies.setText("Refresh");
+        refresh_supplies.setToolTipText("See all school supplies");
+        refresh_supplies.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                refresh_suppliesMouseClicked(evt);
+            }
+        });
 
-        jButton3.setText("jButton3");
+        add_supplies.setText("Add New");
+        add_supplies.setToolTipText("Add new school supplies");
+        add_supplies.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                add_suppliesMouseClicked(evt);
+            }
+        });
 
         delete_book_button.setText("Del Book");
         delete_book_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -118,8 +147,6 @@ public class Dashboard extends javax.swing.JFrame {
                 delete_book_buttonMouseClicked(evt);
             }
         });
-
-        search_label.setText("Search");
 
         search_button.setText("Search");
         search_button.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -147,13 +174,13 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(add_new_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(refresh_supplies, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add_supplies, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(delete_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(search_field)
-                    .addComponent(search_label)
                     .addComponent(search_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(signout_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(signout_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -175,20 +202,20 @@ public class Dashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(delete_book_button)
                         .addGap(18, 18, 18)
-                        .addComponent(search_label)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(search_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(search_button)
-                        .addGap(26, 26, 26)
+                        .addGap(47, 47, 47)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(46, 46, 46)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
+                        .addComponent(refresh_supplies)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3)
+                        .addComponent(add_supplies)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(signout_button, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                        .addComponent(signout_button)
+                        .addGap(18, 18, 18))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -277,7 +304,7 @@ public class Dashboard extends javax.swing.JFrame {
                                 }
                                 // Add space and an icon between the elements
                                 content += "\n\t- \u03A8 -\n\n";
-
+                                
                                 // increment the counter
                                 counter++;
                                 book_count++;
@@ -323,6 +350,19 @@ public class Dashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_signout_buttonMouseClicked
 
+    private void refresh_suppliesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_suppliesMouseClicked
+        // use the method to get the list of files
+        FileManager getFiles = new FileManager();
+        File[] supplies_array = getFiles.all_dir_files(getFiles.get_supplies_directory());
+
+        render_supplies_content();
+    }//GEN-LAST:event_refresh_suppliesMouseClicked
+
+    private void add_suppliesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_suppliesMouseClicked
+        // Handle click event for Add Supplies button        
+        new AddSupplies().setVisible(true);
+    }//GEN-LAST:event_add_suppliesMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -360,19 +400,19 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_new_book_button;
+    private javax.swing.JButton add_supplies;
     private javax.swing.JPanel container_panel;
     private javax.swing.JButton delete_book_button;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton refresh_books_button;
+    private javax.swing.JButton refresh_supplies;
     private javax.swing.JTextArea resource_list;
     private javax.swing.JButton search_button;
     private javax.swing.JTextField search_field;
-    private javax.swing.JLabel search_label;
     private javax.swing.JButton signout_button;
     // End of variables declaration//GEN-END:variables
 }

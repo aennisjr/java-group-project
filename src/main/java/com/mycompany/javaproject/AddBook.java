@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,8 +26,12 @@ public class AddBook extends javax.swing.JFrame {
         initComponents();
     }
     
-    public static boolean isNumeric(String str) {
-        return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    public static boolean isNumeric(String value) {
+        return value.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+    }
+    
+    public static boolean isAlphaNumeric(String value){
+        return value.matches("^[a-zA-Z0-9]*$");
     }
 
     /**
@@ -64,6 +69,7 @@ public class AddBook extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Add A Book");
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/h.png")).getImage());
         setResizable(false);
 
         add_book_panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -79,8 +85,7 @@ public class AddBook extends javax.swing.JFrame {
 
         available_for_trade.setText("Trade");
 
-        condition_field.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Poor", "Fair", "Good", "Excellent" }));
-        condition_field.setSelectedItem(condition_field);
+        condition_field.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "New (Never been used)", "Good", "Fair", "Poor" }));
 
         jLabel2.setText("Condition");
 
@@ -233,71 +238,74 @@ public class AddBook extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please ensure that you fill in all fields.");
         } else {
             // proceed if all fields are filled in
-            // additional validation
-            if(!isNumeric(price) || !isNumeric(copies)){
-                JOptionPane.showMessageDialog(this, "The number of copies and price fields should contain numeric values");
+            // additional validation - only allow alphanumeric chars
+            if(!isAlphaNumeric(book_title)){
+                JOptionPane.showMessageDialog(this, "The title should contain only letters and numbers.");
             } else {
-                try {
-                    //get information about current user
-                    FileManager getFiles = new FileManager();
-                    String userdata = getFiles.current_user();
-                    String current_user_email = getFiles.current_user_email();
-                    String books_directory = getFiles.get_books_directory();
-                    
-                    // Create a directory in the C drive to store the file there (if the directory doesn't already exist)
-                    new File(books_directory).mkdirs();
-                    
-                    System.out.println("Books dir: " + books_directory);
+                // additional validation - only allow numbers for price and copies values
+                if(!isNumeric(price) || !isNumeric(copies)){
+                    JOptionPane.showMessageDialog(this, "The number of copies and price fields should contain numeric values");
+                } else {
+                    try {
+                        //get information about current user
+                        FileManager getFiles = new FileManager();
+                        String userdata = getFiles.current_user();
+                        String current_user_email = getFiles.current_user_email();
+                        String books_directory = getFiles.get_books_directory();
 
-                    // Define the file to be and save it as the user's email + book title address
-                    File myObj = new File(books_directory + current_user_email + " - " + book_title + ".txt");
-                    
-                    if (myObj.createNewFile()) {
-                        System.out.println("Book created: " + myObj.getName());
-                        try {
-                            // Write the data to the file, one value on each line
-                            FileWriter myWriter = new FileWriter(myObj);
-                            myWriter.write("     Title: \t\t" + book_title + "\n" 
-                                           + "Author: \t\t" + author + "\n" 
-                                           + "ISBN: \t\t" + isbn + "\n"  
-                                           + "Publisher: \t" + publisher + "\n" 
-                                           + "Condition: \t" + condition + "\n"
-                                           + "Price: \t\t" + price + "\n"
-                                           + "Posted By: \t" + userdata);
-                            
-                            //check both checkboxes are checked, if yes, add label
-                            if(for_sale == true && for_trade == true) {
-                                myWriter.write("\nThis item is: \tAvailable for SALE or TRADE");
-                            } else if(for_sale == true && for_trade == false) {
-                                // if only the for sale checkbox is checked
-                                myWriter.write("\nThis item is: \tAvailable for SALE ONLY");
-                            } else if(for_sale == false && for_trade == true) {
-                                // if only the for trade checkbox is checked
-                                myWriter.write("\nThis item is: \tAvailable for TRADES ONLY");
+                        NumberFormat currency_format = NumberFormat.getCurrencyInstance();
+                        String currency = currency_format.format(Double.parseDouble(price));
+
+                        // Define the file to be and save it as the user's email + book title address
+                        File myObj = new File(books_directory + current_user_email + " - " + book_title + ".txt");
+
+                        if (myObj.createNewFile()) {
+                            System.out.println("Book created: " + myObj.getName());
+                            try {
+                                // Write the data to the file, one value on each line
+                                FileWriter myWriter = new FileWriter(myObj);
+                                myWriter.write("     Title: \t\t" + book_title + "\n" 
+                                               + "Author: \t\t" + author + "\n" 
+                                               + "ISBN: \t\t" + isbn + "\n"  
+                                               + "Publisher: \t" + publisher + "\n" 
+                                               + "Condition: \t" + condition + "\n"
+                                               + "Price: \t\t" + currency + "\n"
+                                               + "Posted By: \t" + userdata);
+
+                                //check both checkboxes are checked, if yes, add label
+                                if(for_sale == true && for_trade == true) {
+                                    myWriter.write("\nThis item is: \tAvailable for SALE or TRADE");
+                                } else if(for_sale == true && for_trade == false) {
+                                    // if only the for sale checkbox is checked
+                                    myWriter.write("\nThis item is: \tAvailable for SALE ONLY");
+                                } else if(for_sale == false && for_trade == true) {
+                                    // if only the for trade checkbox is checked
+                                    myWriter.write("\nThis item is: \tAvailable for TRADES ONLY");
+                                }
+
+                                // file description
+                                myWriter.write("\nDescription:\n" + description);
+
+                                // close file
+                                myWriter.close();
+
+                                // Display confirmation message to the user and then dispose of the window
+                                JOptionPane.showMessageDialog(this, "Your book has been added to our collection.");
+                                this.dispose();
+                            } catch (IOException e) {
+                                // Catch any errors that may be thrown
+                                System.out.println("An error occurred. Please report this to an administrator.");
+                                e.printStackTrace();
                             }
-                            
-                            // file description
-                            myWriter.write("\nDescription:\n" + description);
-                            
-                            // close file
-                            myWriter.close();
-
-                            // Display confirmation message to the user and then dispose of the window
-                            JOptionPane.showMessageDialog(this, "Your book has been added to our collection.");
-                            this.dispose();
-                        } catch (IOException e) {
-                            // Catch any errors that may be thrown
-                            System.out.println("An error occurred. Please report this to an administrator.");
-                            e.printStackTrace();
+                        } else {
+                            // Display message if the email address already exists
+                            JOptionPane.showMessageDialog(this, "We already have a book with that title. Please use another.");
                         }
-                    } else {
-                        // Display message if the email address already exists
-                        JOptionPane.showMessageDialog(this, "We already have a book with that title. Please use another.");
+                    } catch (IOException e) {
+                        // Catch/DIsplay error messages
+                        JOptionPane.showMessageDialog(this, "You have already added a book with that title.");
+                        e.printStackTrace();
                     }
-                } catch (IOException e) {
-                    // Catch/DIsplay error messages
-                    JOptionPane.showMessageDialog(this, "You have already added a book with that title.");
-                    e.printStackTrace();
                 }
             }
         }
