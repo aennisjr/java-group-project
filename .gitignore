@@ -11,10 +11,10 @@
 .mtj.tmp/
 
 # Directories
-target/
+#target/
 
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.nar
 *.ear
