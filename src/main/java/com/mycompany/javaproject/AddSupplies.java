@@ -198,7 +198,7 @@ public class AddSupplies extends javax.swing.JFrame {
         } else {
             // proceed if all fields are filled in
             // additional validation
-            if(!isAlphaNumeric(title) || !isAlphaNumeric(make)){
+            if(isAlphaNumeric(title) == false || isAlphaNumeric(make) == false){
                 JOptionPane.showMessageDialog(this, "The title and make fields should contain only letters and numbers.");
             } else {
                 if(!isNumeric(price)){

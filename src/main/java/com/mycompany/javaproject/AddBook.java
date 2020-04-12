@@ -31,7 +31,7 @@ public class AddBook extends javax.swing.JFrame {
     }
     
     public static boolean isAlphaNumeric(String value){
-        return value.matches("^[a-zA-Z0-9]*$");
+        return value.matches("^[a-zA-Z0-9 ]*$");
     }
 
     /**
@@ -239,11 +239,11 @@ public class AddBook extends javax.swing.JFrame {
         } else {
             // proceed if all fields are filled in
             // additional validation - only allow alphanumeric chars
-            if(!isAlphaNumeric(book_title)){
+            if(isAlphaNumeric(book_title) == false){
                 JOptionPane.showMessageDialog(this, "The title should contain only letters and numbers.");
             } else {
                 // additional validation - only allow numbers for price and copies values
-                if(!isNumeric(price) || !isNumeric(copies)){
+                if(isNumeric(price) == false || isNumeric(copies) == false){
                     JOptionPane.showMessageDialog(this, "The number of copies and price fields should contain numeric values");
                 } else {
                     try {
