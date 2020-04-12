@@ -25,6 +25,13 @@ public class Dashboard extends javax.swing.JFrame {
         new FileManager();
     }
     
+    public boolean contains(String value, String search_for) {
+        if(value.indexOf(search_for) != -1)
+            return true;
+        else 
+            return false;
+    }
+    
     // renders the content of the page (books)
     public void render_book_content(){
         FileManager getFiles = new FileManager();
@@ -69,12 +76,15 @@ public class Dashboard extends javax.swing.JFrame {
         add_new_book_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         refresh_supplies = new javax.swing.JButton();
-        add_supplies = new javax.swing.JButton();
+        add_new_supplies_button = new javax.swing.JButton();
         delete_book_button = new javax.swing.JButton();
         search_field = new javax.swing.JTextField();
         search_button = new javax.swing.JButton();
         signout_button = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        delete_supplies_button = new javax.swing.JButton();
+        supplies_search_field = new javax.swing.JTextField();
+        supplies_search_button = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashbaord");
@@ -133,11 +143,11 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
-        add_supplies.setText("Add New");
-        add_supplies.setToolTipText("Add new school supplies");
-        add_supplies.addMouseListener(new java.awt.event.MouseAdapter() {
+        add_new_supplies_button.setText("Add New");
+        add_new_supplies_button.setToolTipText("Add new school supplies");
+        add_new_supplies_button.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                add_suppliesMouseClicked(evt);
+                add_new_supplies_buttonMouseClicked(evt);
             }
         });
 
@@ -163,6 +173,20 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
 
+        delete_supplies_button.setText("Delete");
+        delete_supplies_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                delete_supplies_buttonMouseClicked(evt);
+            }
+        });
+
+        supplies_search_button.setText("Search");
+        supplies_search_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                supplies_search_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout container_panelLayout = new javax.swing.GroupLayout(container_panel);
         container_panel.setLayout(container_panelLayout);
         container_panelLayout.setHorizontalGroup(
@@ -175,12 +199,15 @@ public class Dashboard extends javax.swing.JFrame {
                     .addComponent(add_new_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel2)
                     .addComponent(refresh_supplies, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(add_supplies, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(add_new_supplies_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(delete_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(search_field)
                     .addComponent(search_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(signout_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1))
+                    .addComponent(jSeparator1)
+                    .addComponent(delete_supplies_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(supplies_search_field)
+                    .addComponent(supplies_search_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -205,14 +232,20 @@ public class Dashboard extends javax.swing.JFrame {
                         .addComponent(search_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(search_button)
-                        .addGap(47, 47, 47)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(46, 46, 46)
+                        .addGap(37, 37, 37)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(refresh_supplies)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(add_supplies)
+                        .addComponent(add_new_supplies_button)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(delete_supplies_button)
+                        .addGap(23, 23, 23)
+                        .addComponent(supplies_search_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(supplies_search_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(signout_button)
                         .addGap(18, 18, 18))))
@@ -272,71 +305,14 @@ public class Dashboard extends javax.swing.JFrame {
         if(search.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a book title to search for.");
         } else {
-            // Stores the content to be output to the user
-            String content = "";
-            // variable to store the outcome
-            boolean outcome = false;
-            int counter = 1;
-            int book_count = 0;
-            BufferedReader reader;
-            
             //get a list of books in the folder
             FileManager getFiles = new FileManager();
+            
             // get information about the current user
             File[] books_array = getFiles.all_dir_files(getFiles.get_books_directory());
             
-            for(File book: books_array) {
-                // checks for the following
-                // 1. that the file is actually a file and not a directory (folder)
-                // 2. that the file name ends with the title of the book that the user searched for
-                if (book.isFile() && book.getName().toLowerCase().endsWith(search.toLowerCase() + ".txt")) {
-                    try {
-                        try {
-                            content = counter + ". ";
-
-                            try {
-                                reader = new BufferedReader(new FileReader(book));
-                                String line = reader.readLine();
-                                while (line != null) {
-                                        content = content + line + "\n          ";
-                                        // read next line
-                                        line = reader.readLine();
-                                }
-                                // Add space and an icon between the elements
-                                content += "\n\t- \u03A8 -\n\n";
-                                
-                                // increment the counter
-                                counter++;
-                                book_count++;
-                                outcome = true;
-
-                                // close the file
-                                reader.close();
-                            } catch (IOException e) {
-                                    e.printStackTrace();
-                            }
-                            //resource_list.append(line + "\n\n");
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    } catch (Exception e) {
-                            e.printStackTrace();
-                    }
-                }
-            }
-            
-            // output the results to the user
-            if(outcome == true) {
-                JOptionPane.showMessageDialog(this, "We Found " + book_count + " book(s) with that title.");
-                resource_list.setText(null); //clear out old text
-                resource_list.append("Showing " + book_count + " result(s).\n\n"); // display number of results
-                resource_list.append(content); /// add the new text
-            } else if (outcome == false) {
-                JOptionPane.showMessageDialog(this, "The book you're searching for was not found. Please try searching again");
-            } else {
-                JOptionPane.showMessageDialog(this, "An error occured while processing your request.");
-            }
+            // search for the file and render the results (if any)
+            getFiles.search_render_file_content_in_panel(search, books_array, resource_list, container_panel);
         }
     }//GEN-LAST:event_search_buttonMouseClicked
 
@@ -358,10 +334,46 @@ public class Dashboard extends javax.swing.JFrame {
         render_supplies_content();
     }//GEN-LAST:event_refresh_suppliesMouseClicked
 
-    private void add_suppliesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_suppliesMouseClicked
+    private void add_new_supplies_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_new_supplies_buttonMouseClicked
         // Handle click event for Add Supplies button        
         new AddSupplies().setVisible(true);
-    }//GEN-LAST:event_add_suppliesMouseClicked
+    }//GEN-LAST:event_add_new_supplies_buttonMouseClicked
+
+    private void supplies_search_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supplies_search_buttonMouseClicked
+        // handle click event for the supplies search button
+        String search = supplies_search_field.getText().trim();
+        
+        if(search.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a value to search for.");
+        } else {
+
+            //get a list of books in the folder
+            FileManager getFiles = new FileManager();
+            
+            // get information about the current user
+            File[] supplies_array = getFiles.all_dir_files(getFiles.get_supplies_directory());
+            
+            // search for the file and render the results (if any)
+            getFiles.search_render_file_content_in_panel(search, supplies_array, resource_list, container_panel);
+        }
+    }//GEN-LAST:event_supplies_search_buttonMouseClicked
+
+    private void delete_supplies_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_supplies_buttonMouseClicked
+        // Handle click even for delete supplies button
+        String input = JOptionPane.showInputDialog(this, "Please enter the name of the item you wish to delete.").trim().toLowerCase();
+        
+        // check if a value is entered
+        if(input != null) {
+            FileManager getFiles = new FileManager();
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this file?");
+            
+            if(confirm == 0) {
+                // confirmation is true
+                boolean delete = getFiles.delete_file_by_name(getFiles.get_supplies_directory(), input);
+                render_supplies_content();
+            }
+        }
+    }//GEN-LAST:event_delete_supplies_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -400,9 +412,10 @@ public class Dashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add_new_book_button;
-    private javax.swing.JButton add_supplies;
+    private javax.swing.JButton add_new_supplies_button;
     private javax.swing.JPanel container_panel;
     private javax.swing.JButton delete_book_button;
+    private javax.swing.JButton delete_supplies_button;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
@@ -414,5 +427,7 @@ public class Dashboard extends javax.swing.JFrame {
     private javax.swing.JButton search_button;
     private javax.swing.JTextField search_field;
     private javax.swing.JButton signout_button;
+    private javax.swing.JButton supplies_search_button;
+    private javax.swing.JTextField supplies_search_field;
     // End of variables declaration//GEN-END:variables
 }
