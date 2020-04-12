@@ -33,8 +33,6 @@ public class FileManager {
         new File(current_user_directory).mkdirs();
         new File(books_directory).mkdirs();
         new File(supplies_directory).mkdirs();
-        
-        System.out.println("Directories created");
     }
     
     // getter for user directory
@@ -55,6 +53,14 @@ public class FileManager {
 // getter for books directory
     public String get_supplies_directory() {
         return supplies_directory;
+    }
+    
+    // Used for checking if a filename contains the specified search value
+    public boolean contains(String value, String search_for) {
+        if(value.indexOf(search_for) != -1)
+            return true;
+        else 
+            return false;
     }
     
     // gets a list of all files stored in a given directory, returns a File array
@@ -132,6 +138,70 @@ public class FileManager {
         revalidate_panel.revalidate();
     }
     
+    // Searches the specified directory for a file
+    public void search_render_file_content_in_panel(String search_for, File[] file_array, JTextArea render_to_panel, JPanel revalidate_panel) {
+         // Stores the content to be output to the user
+        String content = "";
+        // variable to store the outcome
+        boolean outcome = false;
+        int counter = 1;
+        int file_count = 0;
+        BufferedReader reader;
+        
+        for(File file: file_array) {
+            // checks for the following
+            // 1. that the file is actually a file and not a directory (folder)
+            // 2. that the file name ends with the title of the book that the user searched for
+            if (file.isFile() && contains(file.getName().toLowerCase(), search_for.toLowerCase())) {
+                try {
+                    try {
+                        content = counter + ". ";
+
+                        try {
+                            reader = new BufferedReader(new FileReader(file));
+                            String line = reader.readLine();
+                            while (line != null) {
+                                    content = content + line + "\n          ";
+                                    // read next line
+                                    line = reader.readLine();
+                            }
+                            // Add space and an icon between the elements
+                            content += "\n\t- \u221E - \u221E - \u221E -\n\n";
+
+                            // increment the counter
+                            counter++;
+                            file_count++;
+                            outcome = true;
+
+                            // close the file
+                            reader.close();
+                        } catch (IOException e) {
+                                e.printStackTrace();
+                        }
+                        //resource_list.append(line + "\n\n");
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } catch (Exception e) {
+                        e.printStackTrace();
+                }
+            }
+        }
+
+        // output the results to the user
+        if(outcome == true) {
+            JOptionPane.showMessageDialog(null, "Your search returned " + file_count + " file(s) with that title.");
+            render_to_panel.setText(null); //clear out old text
+            render_to_panel.append("Showing " + file_count + " result(s).\n\n"); // display number of results
+            render_to_panel.append(content); /// add the new text
+        } else if (outcome == false) {
+            JOptionPane.showMessageDialog(null, "We didn't find any results for \""+ search_for +"\". Please try searching again");
+        } else {
+            JOptionPane.showMessageDialog(null, "An error occured while processing your request.");
+        }
+    }
+    
     // takes a directory (String) and filename (String). Searches the directory for the filename given then deletes it
     public boolean delete_file_by_name(String directory, String filename) {
 
@@ -145,17 +215,17 @@ public class FileManager {
         boolean outcome = false;
 
         // get a list of books in the folder
-        File[] books_array = getFiles.all_dir_files(getFiles.get_books_directory());
+        File[] files_array = getFiles.all_dir_files(directory);
 
-        for(File book: books_array) {
+        for(File file: files_array) {
             // checks for the following
             // 1. that the file is actually a file and not a directory (folder)
             // 2. that the file name starts with the current user's email address 
             // 3. that the file name ends with the title of the book that the user entered
-            if (book.isFile() && book.getName().startsWith(current_user_email) && book.getName().toLowerCase().endsWith(filename + ".txt")) {
+            if (file.isFile() && file.getName().startsWith(current_user_email) && file.getName().toLowerCase().endsWith(filename + ".txt")) {
                 try {
                     // delete
-                    if(book.delete()){
+                    if(file.delete()){
                         // if the file was found and successfully deleted
                         outcome = true;
                         break;
@@ -169,11 +239,11 @@ public class FileManager {
         // output the results to the user
         if(outcome == true) {
             // book successfully removed
-            JOptionPane.showMessageDialog(null, "Your book has been removed from our database.");
+            JOptionPane.showMessageDialog(null, "Your item has been removed from our database.");
             return true;
         } else if (outcome == false) {
             // if the filename does not match any of the files returned, or if the file was not added by current user
-            JOptionPane.showMessageDialog(null, "The book you're attempting to delete was not added by you, \n"
+            JOptionPane.showMessageDialog(null, "The item you're attempting to delete was not added by you, \n"
                                               + "or you may have typed the title incorrectly. Please try again.");
             return false;
         } else {
