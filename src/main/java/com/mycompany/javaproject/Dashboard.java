@@ -24,14 +24,7 @@ public class Dashboard extends javax.swing.JFrame {
         render_book_content();
         new FileManager();
     }
-    
-    public boolean contains(String value, String search_for) {
-        if(value.indexOf(search_for) != -1)
-            return true;
-        else 
-            return false;
-    }
-    
+       
     // renders the content of the page (books)
     public void render_book_content(){
         FileManager getFiles = new FileManager();
@@ -323,6 +316,7 @@ public class Dashboard extends javax.swing.JFrame {
         if(confirm == 0) {
             // confirmation is true
             this.setVisible(false);
+            System.exit(0);
         }
     }//GEN-LAST:event_signout_buttonMouseClicked
 
