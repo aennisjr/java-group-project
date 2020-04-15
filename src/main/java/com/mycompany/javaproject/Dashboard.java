@@ -5,10 +5,7 @@
  */
 package com.mycompany.javaproject;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import javax.swing.JOptionPane;
 /**
  *
@@ -22,11 +19,10 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         render_book_content();
-        new FileManager();
     }
        
     // renders the content of the page (books)
-    public void render_book_content(){
+    public final void render_book_content(){
         FileManager getFiles = new FileManager();
         File[] books_array = getFiles.all_dir_files(getFiles.get_books_directory());
         int current_book_count = books_array.length;
@@ -259,12 +255,7 @@ public class Dashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void refresh_books_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_books_buttonMouseClicked
-        // handle click event for the view books button
-
-        // use the method to get the list of files
-        FileManager getFiles = new FileManager();
-        File[] books_array = getFiles.all_dir_files(getFiles.get_books_directory());
-        
+        // handle click event for the refresh books button       
         render_book_content();
         
     }//GEN-LAST:event_refresh_books_buttonMouseClicked
@@ -321,10 +312,8 @@ public class Dashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_signout_buttonMouseClicked
 
     private void refresh_suppliesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_suppliesMouseClicked
-        // use the method to get the list of files
-        FileManager getFiles = new FileManager();
-        File[] supplies_array = getFiles.all_dir_files(getFiles.get_supplies_directory());
-
+        // handle click event for the refresh books button               
+        // render supplies content
         render_supplies_content();
     }//GEN-LAST:event_refresh_suppliesMouseClicked
 
