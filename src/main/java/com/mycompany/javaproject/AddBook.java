@@ -269,7 +269,9 @@ public class AddBook extends javax.swing.JFrame {
                                                + "ISBN: \t\t" + isbn + "\n"  
                                                + "Publisher: \t" + publisher + "\n" 
                                                + "Condition: \t" + condition + "\n"
+                                               + "Copies: \t\t" + copies + "\n"
                                                + "Price: \t\t" + currency + "\n"
+                                               + "Posted on: \t" + getFiles.current_date_time() + "\n"
                                                + "Posted By: \t" + userdata);
 
                                 //check both checkboxes are checked, if yes, add label

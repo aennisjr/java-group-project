@@ -234,7 +234,7 @@ public class AddSupplies extends javax.swing.JFrame {
                                                + "Condition: \t" + supplies_condition + "\n"
                                                + "Price: \t\t" + currency + "\n"
                                                + "Posted By: \t" + userdata + "\n"
-                                               + "Posted On: \t" + timestamp.toString());
+                                               + "Posted On: \t" + getFiles.current_date_time());
 
                                 // file description
                                 myWriter.write("\nDescription:\n" + supplies_description);

@@ -19,8 +19,6 @@ public class Main {
         
         // Set the main window to be visible after launching the application
         new MainWindow().setVisible(true);
-        //new Dashboard().setVisible(true);
-        //new Test().setVisible(true);
         
     }
     

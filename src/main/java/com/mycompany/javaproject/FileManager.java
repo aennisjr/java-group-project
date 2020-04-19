@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -53,6 +55,13 @@ public class FileManager {
 // getter for books directory
     public String get_supplies_directory() {
         return supplies_directory;
+    }
+    
+    // Get current data and time
+    public static String current_date_time() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        LocalDateTime now = LocalDateTime.now();
+        return dtf.format(now);
     }
     
     // gets a list of all files stored in a given directory, returns a File array

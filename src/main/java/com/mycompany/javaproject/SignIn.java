@@ -41,10 +41,10 @@ public class SignIn extends javax.swing.JFrame {
         email_address_label = new javax.swing.JLabel();
         email_address_field = new javax.swing.JTextField();
         password_label = new javax.swing.JLabel();
-        signin_button = new javax.swing.JButton();
         create_account_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         password_field = new javax.swing.JPasswordField();
+        submit_button = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Sign Into Your Account");
@@ -53,19 +53,12 @@ public class SignIn extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Georgia Pro Cond", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia Pro Cond", 0, 32)); // NOI18N
         jLabel1.setText("Sign Into Your Account");
 
         email_address_label.setText("Email Address");
 
         password_label.setText("Password:");
-
-        signin_button.setText("Sign In");
-        signin_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                signin_buttonMouseClicked(evt);
-            }
-        });
 
         create_account_button.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         create_account_button.setText("Create an Account");
@@ -78,45 +71,54 @@ public class SignIn extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel2.setText("Click here if you do not have an account.");
 
+        submit_button.setIcon(new javax.swing.ImageIcon(getClass().getResource("/submit.png"))); // NOI18N
+        submit_button.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submit_button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submit_buttonMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(122, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(password_field)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(147, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(email_address_label)
+                    .addComponent(password_label)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(create_account_button)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2))
-                    .addComponent(signin_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(password_label, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(email_address_field)
-                    .addComponent(email_address_label, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(118, 118, 118))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(email_address_field, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(password_field, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(submit_button, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(124, 124, 124))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
+                .addGap(99, 99, 99)
                 .addComponent(jLabel1)
-                .addGap(50, 50, 50)
+                .addGap(56, 56, 56)
                 .addComponent(email_address_label)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(email_address_field, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(password_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(password_field, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(signin_button, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+                .addComponent(submit_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(create_account_button)
                     .addComponent(jLabel2))
-                .addGap(57, 57, 57))
+                .addGap(92, 92, 92))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -133,7 +135,13 @@ public class SignIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void signin_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signin_buttonMouseClicked
+    private void create_account_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create_account_buttonMouseClicked
+        // Handle click event for the create account button
+        this.setVisible(false);
+        new Signup().setVisible(true);
+    }//GEN-LAST:event_create_account_buttonMouseClicked
+
+    private void submit_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submit_buttonMouseClicked
         // Executed when the Signin button is clicked
         String email_address = email_address_field.getText().trim();
         String password = password_field.getText().trim();
@@ -143,11 +151,10 @@ public class SignIn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please fill enter an email address and password.");
         } else {
 
-            // creates the directory if it doesn't already exists. prevents an error from being thrown
-            new File("C:/handmedown/users").mkdirs();
+            FileManager query = new FileManager();
             
             // check the specified directory
-            File directory = new File("C:/handmedown/users");
+            File directory = new File(query.get_user_directory());
             
             // define the filename we are searching for
             String filename = email_address + ".txt";
@@ -195,27 +202,20 @@ public class SignIn extends javax.swing.JFrame {
                     // if the passwords match, log the user into the system
                     if (password_found == true){
                         JOptionPane.showMessageDialog(null, "Success. You are now logged in.");
-
-                        this.setVisible(false);
-                        new MainWindow().setVisible(false);
-                        new Dashboard().setVisible(true);
                         
                         //create temporary directory for the currently active user
-                        new File("C:/handmedown/activeuser").mkdirs();
-                        File temp_storage = new File("C:/handmedown/activeuser");
+                        File temp_storage = new File(query.get_current_user_directory());
 
-                        // Deletes the data for any other temporay user that previously used the system
-                        File[] temp_files = temp_storage.listFiles();
-                        for (File myFile: temp_files) {
-                            if (myFile.isDirectory()) {  
-                                deleteDir(myFile);
-                            } 
-                            myFile.delete();
-                        }
+                        // deletes previous temporary user data
+                        File dir = new File(query.get_current_user_directory());
+
+                        for(File file: dir.listFiles()) 
+                            if (!file.isDirectory()) 
+                                file.delete();
                         
                         try {
                             // create the temporary file
-                            File myObj = new File("C:/handmedown/activeuser/" + email_address + ".txt");
+                            File myObj = new File(query.get_current_user_directory() + email_address + ".txt");
                             // Write the data to the file, one value on each line
                             FileWriter myWriter = new FileWriter(myObj);
                             myWriter.write(email_address);
@@ -226,6 +226,11 @@ public class SignIn extends javax.swing.JFrame {
                             System.out.println("An error occurred. Could not create temporary storage directory for active user.");
                             e.printStackTrace();
                         }
+                        
+                        // Display the Dashboard
+                        this.setVisible(false);
+                        new MainWindow().setVisible(false);
+                        new Dashboard().setVisible(true);
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Password incorrect, please try again.");
@@ -237,13 +242,7 @@ public class SignIn extends javax.swing.JFrame {
                 }
             }
         }
-    }//GEN-LAST:event_signin_buttonMouseClicked
-
-    private void create_account_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_create_account_buttonMouseClicked
-        // Handle click event for the create account button
-        this.setVisible(false);
-        new Signup().setVisible(true);
-    }//GEN-LAST:event_create_account_buttonMouseClicked
+    }//GEN-LAST:event_submit_buttonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -300,6 +299,6 @@ public class SignIn extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField password_field;
     private javax.swing.JLabel password_label;
-    private javax.swing.JButton signin_button;
+    private javax.swing.JLabel submit_button;
     // End of variables declaration//GEN-END:variables
 }

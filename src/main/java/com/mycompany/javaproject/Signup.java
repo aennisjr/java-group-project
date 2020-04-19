@@ -42,10 +42,10 @@ public class Signup extends javax.swing.JFrame {
         full_name_label = new javax.swing.JLabel();
         password_label = new javax.swing.JLabel();
         full_name_field = new javax.swing.JTextField();
-        submit = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         signIn_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        submit_btn = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Create New Account");
@@ -66,13 +66,6 @@ public class Signup extends javax.swing.JFrame {
 
         password_label.setText("Password");
 
-        submit.setText("Submit");
-        submit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                submitActionPerformed(evt);
-            }
-        });
-
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel7.setText("* By creating an account, you agree to our terms of use");
 
@@ -87,6 +80,14 @@ public class Signup extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         jLabel2.setText("If you already have an account.");
 
+        submit_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/submit.png"))); // NOI18N
+        submit_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        submit_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                submit_btnMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -99,25 +100,25 @@ public class Signup extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2))
                     .addComponent(jLabel7)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(password_label)
-                        .addComponent(full_name_label)
-                        .addComponent(phone_number_label)
-                        .addComponent(email_address_field, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
-                        .addComponent(email_address_label)
-                        .addComponent(phone_number_field)
-                        .addComponent(full_name_field)
-                        .addComponent(password_field)
-                        .addComponent(submit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(133, Short.MAX_VALUE))
+                    .addComponent(password_label)
+                    .addComponent(full_name_label)
+                    .addComponent(phone_number_label)
+                    .addComponent(email_address_label)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(email_address_field, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(phone_number_field, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(full_name_field, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(password_field, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(submit_btn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)))
+                .addContainerGap(124, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
+                .addGap(68, 68, 68)
                 .addComponent(jLabel1)
-                .addGap(33, 33, 33)
+                .addGap(29, 29, 29)
                 .addComponent(email_address_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(email_address_field, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -133,15 +134,15 @@ public class Signup extends javax.swing.JFrame {
                 .addComponent(password_label)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(password_field, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(19, 19, 19)
+                .addComponent(submit_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel7)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(signIn_button)
                     .addComponent(jLabel2))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -158,8 +159,13 @@ public class Signup extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
+    private void signIn_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signIn_buttonActionPerformed
+        // Handle the event for the SignIn button
+        this.setVisible(false);
+        new SignIn().setVisible(true);
+    }//GEN-LAST:event_signIn_buttonActionPerformed
 
+    private void submit_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_submit_btnMouseClicked
         // Get the data and store them in variables
         String phone_number = phone_number_field.getText().trim();
         String email_address = email_address_field.getText().trim();
@@ -208,13 +214,7 @@ public class Signup extends javax.swing.JFrame {
             }
             
         }
-    }//GEN-LAST:event_submitActionPerformed
-
-    private void signIn_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_signIn_buttonActionPerformed
-        // Handle the event for the SignIn button
-        this.setVisible(false);
-        new SignIn().setVisible(true);
-    }//GEN-LAST:event_signIn_buttonActionPerformed
+    }//GEN-LAST:event_submit_btnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -265,6 +265,6 @@ public class Signup extends javax.swing.JFrame {
     private javax.swing.JTextField phone_number_field;
     private javax.swing.JLabel phone_number_label;
     private javax.swing.JButton signIn_button;
-    private javax.swing.JButton submit;
+    private javax.swing.JLabel submit_btn;
     // End of variables declaration//GEN-END:variables
 }

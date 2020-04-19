@@ -6,6 +6,7 @@
 package com.mycompany.javaproject;
 
 import java.io.File;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 /**
  *
@@ -19,6 +20,12 @@ public class Dashboard extends javax.swing.JFrame {
     public Dashboard() {
         initComponents();
         render_book_content();
+        
+        FileManager query = new FileManager();
+        String user_email = query.current_user_email();
+        user_email_label.setText(user_email);
+        user_email_label.revalidate();
+        user_email_label.repaint();
     }
        
     // renders the content of the page (books)
@@ -56,29 +63,40 @@ public class Dashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         container_panel = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         resource_list = new javax.swing.JTextArea();
-        refresh_books_button = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        add_new_book_button = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        refresh_supplies = new javax.swing.JButton();
-        add_new_supplies_button = new javax.swing.JButton();
-        delete_book_button = new javax.swing.JButton();
         search_field = new javax.swing.JTextField();
-        search_button = new javax.swing.JButton();
-        signout_button = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        delete_supplies_button = new javax.swing.JButton();
         supplies_search_field = new javax.swing.JTextField();
-        supplies_search_button = new javax.swing.JButton();
+        book_search_btn = new javax.swing.JLabel();
+        add_book_btn = new javax.swing.JLabel();
+        refresh_books_btn = new javax.swing.JLabel();
+        delete_book_btn = new javax.swing.JLabel();
+        refresh_supplies_btn = new javax.swing.JLabel();
+        add_supplies_btn = new javax.swing.JLabel();
+        delete_supplies_btn = new javax.swing.JLabel();
+        supplies_search_btn = new javax.swing.JLabel();
+        signout_btn = new javax.swing.JLabel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 10), new java.awt.Dimension(0, 10), new java.awt.Dimension(32767, 10));
+        user_email_label = new javax.swing.JLabel();
+        filler2 = new javax.swing.Box.Filler(new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 0), new java.awt.Dimension(10, 32767));
+
+        jMenu1.setText("File");
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Dashbaord");
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/h.png")).getImage());
-        setPreferredSize(new java.awt.Dimension(930, 540));
+        setMinimumSize(new java.awt.Dimension(930, 540));
         setResizable(false);
 
         container_panel.setBackground(new java.awt.Color(255, 255, 255));
@@ -88,201 +106,188 @@ public class Dashboard extends javax.swing.JFrame {
         resource_list.setRows(5);
         jScrollPane1.setViewportView(resource_list);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 776, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        refresh_books_button.setText("Refresh");
-        refresh_books_button.setToolTipText("See all books");
-        refresh_books_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                refresh_books_buttonMouseClicked(evt);
-            }
-        });
-
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel1.setText("Books");
 
-        add_new_book_button.setText("Add New");
-        add_new_book_button.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                add_new_book_buttonMouseClicked(evt);
-            }
-        });
-
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel2.setText("School Supplies");
 
-        refresh_supplies.setText("Refresh");
-        refresh_supplies.setToolTipText("See all school supplies");
-        refresh_supplies.addMouseListener(new java.awt.event.MouseAdapter() {
+        book_search_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        book_search_btn.setText("jLabel3");
+        book_search_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        book_search_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                refresh_suppliesMouseClicked(evt);
+                book_search_btnMouseClicked(evt);
             }
         });
 
-        add_new_supplies_button.setText("Add New");
-        add_new_supplies_button.setToolTipText("Add new school supplies");
-        add_new_supplies_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        add_book_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/new.png"))); // NOI18N
+        add_book_btn.setToolTipText("");
+        add_book_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add_book_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                add_new_supplies_buttonMouseClicked(evt);
+                add_book_btnMouseClicked(evt);
             }
         });
 
-        delete_book_button.setText("Del Book");
-        delete_book_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        refresh_books_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
+        refresh_books_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        refresh_books_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                delete_book_buttonMouseClicked(evt);
+                refresh_books_btnMouseClicked(evt);
             }
         });
 
-        search_button.setText("Search");
-        search_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        delete_book_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete.png"))); // NOI18N
+        delete_book_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        delete_book_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                search_buttonMouseClicked(evt);
+                delete_book_btnMouseClicked(evt);
             }
         });
 
-        signout_button.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        signout_button.setText("Sign Out");
-        signout_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        refresh_supplies_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/refresh.png"))); // NOI18N
+        refresh_supplies_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        refresh_supplies_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                signout_buttonMouseClicked(evt);
+                refresh_supplies_btnMouseClicked(evt);
             }
         });
 
-        delete_supplies_button.setText("Delete");
-        delete_supplies_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        add_supplies_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/new.png"))); // NOI18N
+        add_supplies_btn.setText("jLabel3");
+        add_supplies_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        add_supplies_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                delete_supplies_buttonMouseClicked(evt);
+                add_supplies_btnMouseClicked(evt);
             }
         });
 
-        supplies_search_button.setText("Search");
-        supplies_search_button.addMouseListener(new java.awt.event.MouseAdapter() {
+        delete_supplies_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/delete.png"))); // NOI18N
+        delete_supplies_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        delete_supplies_btn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                supplies_search_buttonMouseClicked(evt);
+                delete_supplies_btnMouseClicked(evt);
             }
         });
+
+        supplies_search_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
+        supplies_search_btn.setText("jLabel3");
+        supplies_search_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        supplies_search_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                supplies_search_btnMouseClicked(evt);
+            }
+        });
+
+        signout_btn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/signout.png"))); // NOI18N
+        signout_btn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        signout_btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                signout_btnMouseClicked(evt);
+            }
+        });
+
+        user_email_label.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
 
         javax.swing.GroupLayout container_panelLayout = new javax.swing.GroupLayout(container_panel);
         container_panel.setLayout(container_panelLayout);
         container_panelLayout.setHorizontalGroup(
             container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(container_panelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(refresh_books_button, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(add_new_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(10, 10, 10)
+                .addGroup(container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(refresh_books_btn)
+                    .addComponent(add_book_btn)
+                    .addComponent(delete_book_btn)
+                    .addComponent(search_field, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(book_search_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(refresh_supplies, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(add_new_supplies_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(delete_book_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(search_field)
-                    .addComponent(search_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(signout_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jSeparator1)
-                    .addComponent(delete_supplies_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(supplies_search_field)
-                    .addComponent(supplies_search_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                    .addComponent(refresh_supplies_btn)
+                    .addComponent(add_supplies_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete_supplies_btn)
+                    .addComponent(supplies_search_field, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(supplies_search_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(signout_btn))
+                .addGroup(container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(container_panelLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, container_panelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 829, Short.MAX_VALUE)
+                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
+            .addGroup(container_panelLayout.createSequentialGroup()
+                .addGroup(container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(container_panelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(container_panelLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(user_email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(container_panelLayout.createSequentialGroup()
+                        .addGap(160, 160, 160)
+                        .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         container_panelLayout.setVerticalGroup(
             container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(container_panelLayout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
+                .addComponent(jLabel1)
+                .addGap(5, 5, 5)
                 .addGroup(container_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(container_panelLayout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(container_panelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refresh_books_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(add_new_book_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delete_book_button)
-                        .addGap(18, 18, 18)
+                        .addComponent(refresh_books_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(add_book_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(delete_book_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
                         .addComponent(search_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(search_button)
-                        .addGap(37, 37, 37)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
+                        .addGap(0, 0, 0)
+                        .addComponent(book_search_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(refresh_supplies)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(add_new_supplies_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(delete_supplies_button)
-                        .addGap(23, 23, 23)
+                        .addGap(6, 6, 6)
+                        .addComponent(refresh_supplies_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(add_supplies_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(delete_supplies_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
                         .addComponent(supplies_search_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, 0)
+                        .addComponent(supplies_search_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80)
+                        .addComponent(signout_btn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(container_panelLayout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 480, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(supplies_search_button)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(signout_button)
-                        .addGap(18, 18, 18))))
+                        .addComponent(filler2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addComponent(user_email_label, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(filler1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(container_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(container_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(container_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(container_panel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void refresh_books_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_books_buttonMouseClicked
-        // handle click event for the refresh books button       
-        render_book_content();
-        
-    }//GEN-LAST:event_refresh_books_buttonMouseClicked
-
-    private void add_new_book_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_new_book_buttonMouseClicked
-        //Show the add book panel when the dashboard's Add New button is clicked
-        new AddBook().setVisible(true);
-    }//GEN-LAST:event_add_new_book_buttonMouseClicked
-
-    private void delete_book_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_book_buttonMouseClicked
-        // Handle even for Delete Book Button
-        String input = JOptionPane.showInputDialog(this, "Please enter the title of the book you wish to delete.").trim().toLowerCase();
-        
-        // check if a value is entered
-        if(input != null) {
-            FileManager getFiles = new FileManager();
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this file?");
-            
-            if(confirm == 0) {
-                // confirmation is true
-                boolean delete = getFiles.delete_file_by_name(getFiles.get_books_directory(), input);
-                render_book_content();
-            }
-        }
-    }//GEN-LAST:event_delete_book_buttonMouseClicked
-
-    private void search_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_search_buttonMouseClicked
+    private void book_search_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_book_search_btnMouseClicked
         // handle click event for the search button
         String search = search_field.getText().trim();
         
@@ -298,31 +303,64 @@ public class Dashboard extends javax.swing.JFrame {
             // search for the file and render the results (if any)
             getFiles.search_render_file_content_in_panel(search, books_array, resource_list, container_panel);
         }
-    }//GEN-LAST:event_search_buttonMouseClicked
+    }//GEN-LAST:event_book_search_btnMouseClicked
 
-    private void signout_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signout_buttonMouseClicked
-        // Click event for the sign out button
-        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to sign out?");
+    private void refresh_books_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_books_btnMouseClicked
+        // handle click event for the refresh books button       
+        render_book_content();
+    }//GEN-LAST:event_refresh_books_btnMouseClicked
+
+    private void add_book_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_book_btnMouseClicked
+        //Show the add book panel when the dashboard's Add New button is clicked
+        new AddBook().setVisible(true);
+    }//GEN-LAST:event_add_book_btnMouseClicked
+
+    private void delete_book_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_book_btnMouseClicked
+        // Handle even for Delete Book Button
+        String input = JOptionPane.showInputDialog(this, "Please enter the title of the book you wish to delete.").trim().toLowerCase();
         
-        if(confirm == 0) {
-            // confirmation is true
-            this.setVisible(false);
-            System.exit(0);
+        // check if a value is entered
+        if(input != null) {
+            FileManager getFiles = new FileManager();
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this file?");
+            
+            if(confirm == 0) {
+                // confirmation is true
+                boolean delete = getFiles.delete_file_by_name(getFiles.get_books_directory(), input);
+                render_book_content();
+            }
         }
-    }//GEN-LAST:event_signout_buttonMouseClicked
+    }//GEN-LAST:event_delete_book_btnMouseClicked
 
-    private void refresh_suppliesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_suppliesMouseClicked
+    private void refresh_supplies_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_refresh_supplies_btnMouseClicked
         // handle click event for the refresh books button               
         // render supplies content
         render_supplies_content();
-    }//GEN-LAST:event_refresh_suppliesMouseClicked
+    }//GEN-LAST:event_refresh_supplies_btnMouseClicked
 
-    private void add_new_supplies_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_new_supplies_buttonMouseClicked
+    private void add_supplies_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_add_supplies_btnMouseClicked
         // Handle click event for Add Supplies button        
         new AddSupplies().setVisible(true);
-    }//GEN-LAST:event_add_new_supplies_buttonMouseClicked
+    }//GEN-LAST:event_add_supplies_btnMouseClicked
 
-    private void supplies_search_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supplies_search_buttonMouseClicked
+    private void delete_supplies_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_supplies_btnMouseClicked
+        // Handle click even for delete supplies button
+        String input = JOptionPane.showInputDialog(this, "Please enter the name of the item you wish to delete.").trim().toLowerCase();
+        
+        // check if a value is entered
+        if(input != null) {
+            FileManager getFiles = new FileManager();
+            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this file?");
+            
+            if(confirm == 0) {
+                // confirmation is true
+                boolean delete = getFiles.delete_file_by_name(getFiles.get_supplies_directory(), input);
+                render_supplies_content();
+            }
+        }
+    }//GEN-LAST:event_delete_supplies_btnMouseClicked
+
+    private void supplies_search_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_supplies_search_btnMouseClicked
         // handle click event for the supplies search button
         String search = supplies_search_field.getText().trim();
         
@@ -339,24 +377,27 @@ public class Dashboard extends javax.swing.JFrame {
             // search for the file and render the results (if any)
             getFiles.search_render_file_content_in_panel(search, supplies_array, resource_list, container_panel);
         }
-    }//GEN-LAST:event_supplies_search_buttonMouseClicked
+    }//GEN-LAST:event_supplies_search_btnMouseClicked
 
-    private void delete_supplies_buttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_delete_supplies_buttonMouseClicked
-        // Handle click even for delete supplies button
-        String input = JOptionPane.showInputDialog(this, "Please enter the name of the item you wish to delete.").trim().toLowerCase();
+    private void signout_btnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_signout_btnMouseClicked
+        // Click event for the sign out button
+        int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to sign out?");
         
-        // check if a value is entered
-        if(input != null) {
-            FileManager getFiles = new FileManager();
-            int confirm = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this file?");
+        if(confirm == 0) {
+            // confirmation is true
+           
+            // delete the temporary user file
+            FileManager query = new FileManager();
+            File dir = new File(query.get_current_user_directory());
             
-            if(confirm == 0) {
-                // confirmation is true
-                boolean delete = getFiles.delete_file_by_name(getFiles.get_supplies_directory(), input);
-                render_supplies_content();
-            }
+            for(File file: dir.listFiles()) 
+                if (!file.isDirectory()) 
+                    file.delete();
+            
+            this.setVisible(false);
+            System.exit(0);
         }
-    }//GEN-LAST:event_delete_supplies_buttonMouseClicked
+    }//GEN-LAST:event_signout_btnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -394,23 +435,28 @@ public class Dashboard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add_new_book_button;
-    private javax.swing.JButton add_new_supplies_button;
+    private javax.swing.JLabel add_book_btn;
+    private javax.swing.JLabel add_supplies_btn;
+    private javax.swing.JLabel book_search_btn;
     private javax.swing.JPanel container_panel;
-    private javax.swing.JButton delete_book_button;
-    private javax.swing.JButton delete_supplies_button;
+    private javax.swing.JLabel delete_book_btn;
+    private javax.swing.JLabel delete_supplies_btn;
+    private javax.swing.Box.Filler filler1;
+    private javax.swing.Box.Filler filler2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jPanel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JButton refresh_books_button;
-    private javax.swing.JButton refresh_supplies;
+    private javax.swing.JLabel refresh_books_btn;
+    private javax.swing.JLabel refresh_supplies_btn;
     private javax.swing.JTextArea resource_list;
-    private javax.swing.JButton search_button;
     private javax.swing.JTextField search_field;
-    private javax.swing.JButton signout_button;
-    private javax.swing.JButton supplies_search_button;
+    private javax.swing.JLabel signout_btn;
+    private javax.swing.JLabel supplies_search_btn;
     private javax.swing.JTextField supplies_search_field;
+    private javax.swing.JLabel user_email_label;
     // End of variables declaration//GEN-END:variables
 }
