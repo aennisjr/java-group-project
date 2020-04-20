@@ -86,13 +86,15 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel3" alignment="1" min="-2" pref="93" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel3" min="-2" pref="93" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                      </Group>
                       <Group type="102" alignment="1" attributes="0">
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -134,7 +136,7 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Cambria" size="14" style="0"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Maecenas suscipit mattis magna, sed volutpat orci condimentum vel. Phasellus lobortis tortor quis ornare consectetur. Aliquam ut consectetur velit, egestas vulputate velit. Nunc condimentum ante eget cursus semper. Donec sit amet interdum nisl. Proin id lacus dui. Nunc purus nisi, semper ac sem at, rutrum vehicula velit. Vestibulum rutrum enim a metus auctor molestie."/>
+                <Property name="text" type="java.lang.String" value="HandMeDown provides a common platform for members of a closed community to buy and sell within the community. Built on the concept of &#x2018;Value for Money&#x2019; and building &#x2018;network&#x2019; with your peers, HandMeDown strives to reduce the educational expenses incurred by students with respect to their textbooks, reference and other study materials."/>
               </Properties>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="MainWindow_jTextPane1"/>

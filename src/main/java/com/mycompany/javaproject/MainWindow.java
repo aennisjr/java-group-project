@@ -1,14 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.javaproject;
 
-/**
- *
- * @author ennis
- */
 public class MainWindow extends javax.swing.JFrame {
 
     /**
@@ -52,7 +43,7 @@ public class MainWindow extends javax.swing.JFrame {
         jTextPane1.setEditable(false);
         jTextPane1.setBorder(null);
         jTextPane1.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        jTextPane1.setText("Maecenas suscipit mattis magna, sed volutpat orci condimentum vel. Phasellus lobortis tortor quis ornare consectetur. Aliquam ut consectetur velit, egestas vulputate velit. Nunc condimentum ante eget cursus semper. Donec sit amet interdum nisl. Proin id lacus dui. Nunc purus nisi, semper ac sem at, rutrum vehicula velit. Vestibulum rutrum enim a metus auctor molestie.");
+        jTextPane1.setText("HandMeDown provides a common platform for members of a closed community to buy and sell within the community. Built on the concept of ‘Value for Money’ and building ‘network’ with your peers, HandMeDown strives to reduce the educational expenses incurred by students with respect to their textbooks, reference and other study materials.");
         jScrollPane1.setViewportView(jTextPane1);
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/h.png"))); // NOI18N
@@ -105,11 +96,12 @@ public class MainWindow extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(29, 29, 29)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(30, 30, 30)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(27, 27, 27)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
