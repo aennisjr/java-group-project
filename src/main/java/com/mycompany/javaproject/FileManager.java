@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.javaproject;
 
 import java.io.BufferedReader;
@@ -16,10 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-/**
- *
- * @author ennis
- */
 public class FileManager {
     
     // declaration of default directories
@@ -72,24 +63,7 @@ public class FileManager {
         
         return file_array;
         
-    }
-    
-    public ArrayList<String> search_dir_for_files(String directory, String search_for) {
-        
-        File files = new File(directory);
-        File[] file_array = files.listFiles();
-        
-        ArrayList<String> list = new ArrayList<>(); 
-        
-        for(File file: file_array) {
-            if (file.isFile() && file.getName().endsWith(search_for.toLowerCase() + ".txt")) {
-                list.add(file.getName());
-                return list;
-            }
-        }
-        return null;
-    }
-            
+    }       
             
     // takes a file array, targeted text area (JTextArea), and panel (JPanel) as arguments
     // takes the array, read all files in the array, then append it to the target panel as a string, then revalidates the parent element (JPanel)

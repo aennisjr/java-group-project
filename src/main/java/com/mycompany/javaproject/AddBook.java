@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.mycompany.javaproject;
 
 import java.io.BufferedReader;
@@ -13,10 +8,6 @@ import java.io.IOException;
 import java.text.NumberFormat;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ennis
- */
 public class AddBook extends javax.swing.JFrame {
 
     /**
@@ -74,7 +65,7 @@ public class AddBook extends javax.swing.JFrame {
 
         add_book_panel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Georgia Pro Cond", 0, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Georgia", 0, 24)); // NOI18N
         jLabel1.setText("Add A Book");
 
         book_title_label.setText("Book Title");
@@ -120,49 +111,47 @@ public class AddBook extends javax.swing.JFrame {
         add_book_panelLayout.setHorizontalGroup(
             add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(add_book_panelLayout.createSequentialGroup()
-                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(add_book_panelLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(submit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(49, 49, 49)
+                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(submit_button, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(description_label)
+                        .addComponent(jScrollPane1)
+                        .addGroup(add_book_panelLayout.createSequentialGroup()
                             .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(description_label)
-                                .addComponent(jScrollPane1)
+                                .addComponent(condition_field, 0, 198, Short.MAX_VALUE)
+                                .addComponent(book_title_label)
+                                .addComponent(jLabel2)
+                                .addComponent(isbn_label)
+                                .addComponent(book_title_field)
+                                .addComponent(isbn_field)
+                                .addComponent(price_label)
+                                .addComponent(price_field))
+                            .addGap(38, 38, 38)
+                            .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(available_for_label)
+                                .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(publisher_label)
+                                    .addComponent(author_label)
+                                    .addComponent(author_field)
+                                    .addComponent(publisher_field)
+                                    .addComponent(copies_label)
+                                    .addComponent(copies_field, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
                                 .addGroup(add_book_panelLayout.createSequentialGroup()
-                                    .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(condition_field, 0, 198, Short.MAX_VALUE)
-                                        .addComponent(book_title_label)
-                                        .addComponent(jLabel2)
-                                        .addComponent(isbn_label)
-                                        .addComponent(book_title_field)
-                                        .addComponent(isbn_field)
-                                        .addComponent(price_label)
-                                        .addComponent(price_field))
-                                    .addGap(38, 38, 38)
-                                    .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(available_for_label)
-                                        .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(publisher_label)
-                                            .addComponent(author_label)
-                                            .addComponent(author_field)
-                                            .addComponent(publisher_field)
-                                            .addComponent(copies_label)
-                                            .addComponent(copies_field, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE))
-                                        .addGroup(add_book_panelLayout.createSequentialGroup()
-                                            .addComponent(available_for_sale)
-                                            .addGap(18, 18, 18)
-                                            .addComponent(available_for_trade)))))))
-                    .addGroup(add_book_panelLayout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jLabel1)))
+                                    .addComponent(available_for_sale)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(available_for_trade))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, add_book_panelLayout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addGap(164, 164, 164))))
                 .addContainerGap(57, Short.MAX_VALUE))
         );
         add_book_panelLayout.setVerticalGroup(
             add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(add_book_panelLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(17, 17, 17)
+                .addGap(26, 26, 26)
                 .addGroup(add_book_panelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(book_title_label)
                     .addComponent(author_label))
